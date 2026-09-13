@@ -1,3 +1,5 @@
+// AI was used to assist with code structure and debugging
+
 import { UserInterface } from "./UserInterface.js";
 import { GameEngine } from "./GameEngine.js";
 
