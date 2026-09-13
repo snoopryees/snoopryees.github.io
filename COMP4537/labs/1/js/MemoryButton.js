@@ -8,9 +8,8 @@ export class MemoryButton {
         this.htmlElement.style.backgroundColor = this.color;
 
         //button styling
-        this.htmlElement.style.position = "absolute";
-        this.htmlElement.style.width = "80px";
-        this.htmlElement.style.height = "80px";
+        this.htmlElement.style.width = "10em";
+        this.htmlElement.style.height = "5em";
         this.htmlElement.style.border = "none";
         this.htmlElement.style.borderRadius = "5px";
         this.htmlElement.style.fontSize = "1.2em";
@@ -27,6 +26,7 @@ export class MemoryButton {
     }
 
     setLocation(x, y) {
+        this.htmlElement.style.position = "absolute";
         this.htmlElement.style.left = `${x}px`;
         this.htmlElement.style.top = `${y}px`;
     }

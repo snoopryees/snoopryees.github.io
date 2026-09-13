@@ -16,7 +16,6 @@ export class GameEngine {
 
         this.resetState(n);
         this.createButtons(n);
-        this.scrambleButtons();
 
         // show numbers for n seconds, then start scrambling
         setTimeout(() => {
@@ -89,11 +88,13 @@ export class GameEngine {
 
     scrambleButtons() {
         const dimensions = this.ui.getBrowserDimensions();
-        const buttonSize = 80;
 
         for (const btn of this.buttonsArray) {
-            const x = Math.floor(Math.random() * (dimensions.width - buttonSize));
-            const y = Math.floor(Math.random() * (dimensions.height - buttonSize - 100));
+            const btnWidth = btn.htmlElement.offsetWidth;
+            const btnHeight = btn.htmlElement.offsetHeight;
+
+            const x = Math.floor(Math.random() * (dimensions.width - btnWidth));
+            const y = Math.floor(Math.random() * (dimensions.height - btnHeight));
             btn.setLocation(x, y);
         }
     }
