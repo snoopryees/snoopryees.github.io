@@ -1,11 +1,10 @@
 import { UserInterface } from "./UserInterface.js";
-import { STRINGS } from "../lang/en/strings.js";
+import { GameEngine } from "./GameEngine.js";
 
 const ui = new UserInterface();
+const game = new GameEngine(ui);
 
-// testing buttons
 ui.goButton.addEventListener("click", () => {
     const n = ui.getNumberOfButtons();
-    ui.displayMessage(`You entered: ${n}`);
-    console.log("Browser dimensions:", ui.getBrowserDimensions());
+    game.startGame(n);
 });

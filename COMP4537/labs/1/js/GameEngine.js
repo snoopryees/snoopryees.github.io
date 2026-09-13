@@ -17,6 +17,50 @@ export class GameEngine {
         this.resetState(n);
         this.createButtons(n);
         this.scrambleButtons();
+
+        // show numbers for n seconds, then start scrambling
+        setTimeout(() => {
+            this.startScramblePhase();
+        }, n * 1000);
+    }
+
+    startScramblePhase() {
+        let scrambleCount = 0;
+
+        const intervalId = setInterval(() => {
+            this.scrambleButtons();
+            scrambleCount++;
+
+            if (scrambleCount >= this.numberOfButtons) {
+                clearInterval(intervalId);
+                this.startPlayPhase();
+            }
+        }, 2000);
+    }
+
+    startPlayPhase() {
+        for (const btn of this.buttonsArray) {
+            btn.hideNumber();
+            btn.htmlElement.addEventListener("click", () => {
+                this.handleButtonClick(btn);
+            });
+        }
+    }
+
+    handleButtonClick(btn) {
+        if (btn.order === this.expectedClickOrder) {
+            btn.showNumber();
+            this.expectedClickOrder++;
+
+            if (this.expectedClickOrder > this.numberOfButtons) {
+                this.ui.displayMessage(STRINGS.WIN);
+            }
+        } else {
+            for (const b of this.buttonsArray) {
+                b.showNumber();
+            }
+            this.ui.displayMessage(STRINGS.LOSE);
+        }
     }
 
     validateInput(n) {
