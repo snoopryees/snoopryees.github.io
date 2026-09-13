@@ -1,5 +1,5 @@
 import { MemoryButton } from "./MemoryButton.js";
-import { STRINGS } from "../lang/en/strings.js";
+import { STRINGS } from "../lang/messages/en/user.js";
 
 export class GameEngine {
     constructor(ui) {
@@ -7,6 +7,9 @@ export class GameEngine {
         this.buttonsArray = [];
         this.numberOfButtons = 0;
         this.expectedClickOrder = 1;
+        this.gameOver = false;
+        this.timeoutId = null;
+        this.intervalId = null;
     }
 
     startGame(n) {
@@ -18,7 +21,7 @@ export class GameEngine {
         this.createButtons(n);
 
         // show numbers for n seconds, then start scrambling
-        setTimeout(() => {
+        this.timeoutId = setTimeout(() => {
             this.startScramblePhase();
         }, n * 1000);
     }
@@ -26,12 +29,13 @@ export class GameEngine {
     startScramblePhase() {
         let scrambleCount = 0;
 
-        const intervalId = setInterval(() => {
+        this.intervalId = setInterval(() => {
             this.scrambleButtons();
             scrambleCount++;
 
             if (scrambleCount >= this.numberOfButtons) {
-                clearInterval(intervalId);
+                clearInterval(this.intervalId);
+                this.intervalId = null;
                 this.startPlayPhase();
             }
         }, 2000);
@@ -47,18 +51,24 @@ export class GameEngine {
     }
 
     handleButtonClick(btn) {
+        if (this.gameOver) {
+            return;
+        }
+
         if (btn.order === this.expectedClickOrder) {
             btn.showNumber();
             this.expectedClickOrder++;
 
             if (this.expectedClickOrder > this.numberOfButtons) {
                 this.ui.displayMessage(STRINGS.WIN);
+                this.gameOver = true;
             }
         } else {
             for (const b of this.buttonsArray) {
                 b.showNumber();
             }
             this.ui.displayMessage(STRINGS.LOSE);
+            this.gameOver = true;
         }
     }
 
@@ -71,8 +81,19 @@ export class GameEngine {
     }
 
     resetState(n) {
+        // clear any running timers from previous game
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+
         this.numberOfButtons = n;
         this.expectedClickOrder = 1;
+        this.gameOver = false;
         this.buttonsArray = [];
         this.ui.clearGameArea();
         this.ui.displayMessage("");
