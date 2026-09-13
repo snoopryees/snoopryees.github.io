@@ -4,11 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing</title>
+    <title>Memory Game Lab 1</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <h1>This is a heading test</h1>
+    <div id="controls">
+        <label for="numButtons">How many buttons to create?</label>
+        <input type="number" id="numButtons" min="3" max="7" value="3">
+        <button id="goBtn">Go!</button>
+    </div>
+    <div id="message"></div>
+    <div id="game-area"></div>
+
+    <script type="module" src="./js/script.js" defer></script>
 </body>
 
 </html>
