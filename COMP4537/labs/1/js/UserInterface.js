@@ -30,8 +30,8 @@ export class UserInterface {
 
     getBrowserDimensions() {
         return {
-            width: window.innerWidth,
-            height: window.innerHeight
+            width: this.gameArea.clientWidth,
+            height: this.gameArea.clientHeight
         };
     }
 }
