@@ -1,4 +1,4 @@
-// AI was used to assist with code structure and debugging
+// AI was used to assist with this assignment
 
 import { UserInterface } from "./UserInterface.js";
 import { GameEngine } from "./GameEngine.js";
