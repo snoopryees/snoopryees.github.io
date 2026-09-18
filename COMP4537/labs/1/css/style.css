@@ -28,7 +28,7 @@ body {
 #game-area {
     position: relative;
     width: 100%;
-    height: calc(100vh - 100px);
-    /* Subtract space for controls and message */
+    height: calc(100vh - 140px);
+    /* Subtract space for controls and message (message on top) */
     overflow: hidden;
 }
