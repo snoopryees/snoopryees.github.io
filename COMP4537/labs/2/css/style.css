@@ -1,0 +1,102 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+/* Index page links */
+.nav-links {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #4a90d9;
+  color: white;
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  background-color: #357ab8;
+}
+
+/* Timestamp display in top-right */
+.timestamp {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Note row: textarea + remove button side by side */
+.note-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.note-row textarea {
+  width: 400px;
+  height: 60px;
+  padding: 8px;
+  font-size: 14px;
+  resize: vertical;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.note-row button {
+  padding: 8px 14px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.note-row button:hover {
+  background-color: #c9302c;
+}
+
+/* Add and Back buttons */
+#notes-container {
+  margin-top: 20px;
+}
+
+.action-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.add-btn {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.add-btn:hover {
+  background-color: #449d44;
+}
+
+.back-btn {
+  background-color: #777;
+  color: white;
+}
+
+.back-btn:hover {
+  background-color: #555;
+}
