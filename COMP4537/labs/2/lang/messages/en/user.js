@@ -2,6 +2,7 @@
 const MESSAGES = {
   // Page titles
   PAGE_TITLE: "Lab 2: JSON, Object Constructor, localStorage",
+  STUDENT_NAME: "Nate",
   WRITER_TITLE: "Writer",
   READER_TITLE: "Reader",
 
@@ -19,5 +20,9 @@ const MESSAGES = {
   GO_TO_READER: "Go to Reader",
 
   // localStorage key
-  STORAGE_KEY: "notes"
+  STORAGE_KEY: "notes",
+
+  // Time format
+  TIME_AM: "AM",
+  TIME_PM: "PM"
 };
