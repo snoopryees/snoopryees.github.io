@@ -1,8 +1,7 @@
-// All user-facing strings for the note-taking app
 const MESSAGES = {
   // Page titles
   PAGE_TITLE: "Lab 2: JSON, Object Constructor, localStorage",
-  STUDENT_NAME: "Nate",
+  STUDENT_NAME: "Nathan Hong",
   WRITER_TITLE: "Writer",
   READER_TITLE: "Reader",
 
