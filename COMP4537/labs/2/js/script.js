@@ -1,3 +1,4 @@
+// AI was used to help with this lab
 // Build the landing page dynamically
 document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("app");
