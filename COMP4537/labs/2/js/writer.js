@@ -23,20 +23,15 @@ class Writer {
     const stored = localStorage.getItem(MESSAGES.STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
-      this.notes = parsed.map((item) => new Note(item.text));
+      this.notes = parsed.map((item) => this.createNote(item.text));
     }
   }
 
   // Save current notes to localStorage and update timestamp
   save() {
-    // Rebuild notes array from current textarea values
-    const textareas = this.container.querySelectorAll("textarea");
-    this.notes = [];
-    textareas.forEach((ta) => {
-      this.notes.push(new Note(ta.value));
-    });
-
-    localStorage.setItem(MESSAGES.STORAGE_KEY, JSON.stringify(this.notes));
+    // Map the notes array to just the text property for storage
+    const notesData = this.notes.map(note => ({ text: note.text }));
+    localStorage.setItem(MESSAGES.STORAGE_KEY, JSON.stringify(notesData));
     this.updateTimestamp();
   }
 
@@ -56,36 +51,28 @@ class Writer {
     return `${hours}:${minutes}:${seconds} ${ampm}`;
   }
 
-  // Render all existing notes as textareas
-  render() {
-    this.container.innerHTML = "";
-    this.notes.forEach((note, i) => {
-      this.createNoteRow(note.text, i);
-    });
+  // Create a note with proper callbacks
+  createNote(text) {
+    return new Note(
+      text,
+      (noteToRemove) => {
+        // Remove callback: remove from array and save
+        this.notes = this.notes.filter(n => n !== noteToRemove);
+        this.save();
+      },
+      () => {
+        // Save callback: trigger save on input
+        this.save();
+      }
+    );
   }
 
-  // Create a single note row (textarea + remove button)
-  createNoteRow(text) {
-    const row = document.createElement("div");
-    row.className = "note-row";
-
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    // Save on every input event (efficient approach)
-    textarea.addEventListener("input", () => {
-      this.save();
+  // Render all existing notes by appending their elements
+  render() {
+    this.container.innerHTML = "";
+    this.notes.forEach((note) => {
+      this.container.appendChild(note.getElement());
     });
-    row.appendChild(textarea);
-
-    const removeBtn = document.createElement("button");
-    removeBtn.textContent = MESSAGES.REMOVE;
-    removeBtn.addEventListener("click", () => {
-      row.remove();
-      this.save(); // save immediately on remove
-    });
-    row.appendChild(removeBtn);
-
-    this.container.appendChild(row);
   }
 
   // Create the "Add Note" button
@@ -95,8 +82,11 @@ class Writer {
     addBtn.className = "action-btn add-btn";
     addBtn.id = "add-btn";
     addBtn.addEventListener("click", () => {
-      this.createNoteRow("");
-    });
+      const newNote = this.createNote("");
+      this.notes.push(newNote);
+      this.container.appendChild(newNote.getElement());
+      this.save();
+    })
     this.container.parentElement.appendChild(addBtn);
   }
 

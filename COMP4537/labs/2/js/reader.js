@@ -30,27 +30,15 @@ class Reader {
 
     if (stored) {
       const parsed = JSON.parse(stored);
-      const notes = parsed.map((item) => new Note(item.text));
+      // Instantiate Note with text, null callbacks, and isReadOnly = true
+      const notes = parsed.map((item) => new Note(item.text, null, null, true));
 
       notes.forEach((note) => {
-        this.createNoteRow(note.text);
+        this.container.appendChild(note.getElement());
       });
     }
 
     this.updateTimestamp();
-  }
-
-  // Create a read-only textarea row (no remove button)
-  createNoteRow(text) {
-    const row = document.createElement("div");
-    row.className = "note-row";
-
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.readOnly = true;
-    row.appendChild(textarea);
-
-    this.container.appendChild(row);
   }
 
   // Update the "updated at" timestamp
