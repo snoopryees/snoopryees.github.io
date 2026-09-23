@@ -7,10 +7,10 @@ class Writer {
   constructor() {
     this.notes = [];
     this.container = document.getElementById("notes-container");
-    this.timestampEl = document.getElementById("timestamp");
+    this.ui = new UI();
 
     // Set the page title
-    document.getElementById("page-title").textContent = MESSAGES.WRITER_TITLE;
+    this.ui.setPageTitle(MESSAGES.WRITER_TITLE);
 
     this.loadExistingNotes();
     this.render();
@@ -32,23 +32,7 @@ class Writer {
     // Map the notes array to just the text property for storage
     const notesData = this.notes.map(note => ({ text: note.text }));
     localStorage.setItem(MESSAGES.STORAGE_KEY, JSON.stringify(notesData));
-    this.updateTimestamp();
-  }
-
-  // Update the "stored at" timestamp display
-  updateTimestamp() {
-    const now = new Date();
-    this.timestampEl.textContent = MESSAGES.STORED_AT + this.formatTime(now);
-  }
-
-  // Format a Date object to a readable time string like "11:12:51 AM"
-  formatTime(date) {
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-    const ampm = hours >= 12 ? MESSAGES.TIME_PM : MESSAGES.TIME_AM;
-    hours = hours % 12 || 12;
-    return `${hours}:${minutes}:${seconds} ${ampm}`;
+    this.ui.updateTimestamp(MESSAGES.STORED_AT);
   }
 
   // Create a note with proper callbacks
@@ -77,26 +61,18 @@ class Writer {
 
   // Create the "Add Note" button
   createAddButton() {
-    const addBtn = document.createElement("button");
-    addBtn.textContent = MESSAGES.ADD_NOTE;
-    addBtn.className = "action-btn add-btn";
-    addBtn.id = "add-btn";
-    addBtn.addEventListener("click", () => {
+    const addBtn = this.ui.createButton(MESSAGES.ADD_NOTE, "action-btn add-btn", "add-btn", () => {
       const newNote = this.createNote("");
       this.notes.push(newNote);
       this.container.appendChild(newNote.getElement());
       this.save();
-    })
+    });
     this.container.parentElement.appendChild(addBtn);
   }
 
   // Create the "Back" button
   createBackButton() {
-    const backBtn = document.createElement("button");
-    backBtn.textContent = MESSAGES.BACK;
-    backBtn.className = "action-btn back-btn";
-    backBtn.id = "back-btn";
-    backBtn.addEventListener("click", () => {
+    const backBtn = this.ui.createButton(MESSAGES.BACK, "action-btn back-btn", "back-btn", () => {
       window.location.href = "index.html";
     });
     this.container.parentElement.appendChild(backBtn);

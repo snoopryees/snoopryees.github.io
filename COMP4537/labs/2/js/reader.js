@@ -6,10 +6,10 @@
 class Reader {
   constructor() {
     this.container = document.getElementById("notes-container");
-    this.timestampEl = document.getElementById("timestamp");
+    this.ui = new UI();
 
     // Set the page title
-    document.getElementById("page-title").textContent = MESSAGES.READER_TITLE;
+    this.ui.setPageTitle(MESSAGES.READER_TITLE);
 
     this.createBackButton();
     this.refresh(); // do an initial load right away
@@ -38,32 +38,12 @@ class Reader {
       });
     }
 
-    this.updateTimestamp();
-  }
-
-  // Update the "updated at" timestamp
-  updateTimestamp() {
-    const now = new Date();
-    this.timestampEl.textContent = MESSAGES.UPDATED_AT + this.formatTime(now);
-  }
-
-  // Format time to readable string
-  formatTime(date) {
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const seconds = String(date.getSeconds()).padStart(2, "0");
-    const ampm = hours >= 12 ? MESSAGES.TIME_PM : MESSAGES.TIME_AM;
-    hours = hours % 12 || 12;
-    return `${hours}:${minutes}:${seconds} ${ampm}`;
+    this.ui.updateTimestamp(MESSAGES.UPDATED_AT);
   }
 
   // Create the "Back" button
   createBackButton() {
-    const backBtn = document.createElement("button");
-    backBtn.textContent = MESSAGES.BACK;
-    backBtn.className = "action-btn back-btn";
-    backBtn.id = "back-btn";
-    backBtn.addEventListener("click", () => {
+    const backBtn = this.ui.createButton(MESSAGES.BACK, "action-btn back-btn", "back-btn", () => {
       window.location.href = "index.html";
     });
     this.container.parentElement.appendChild(backBtn);
