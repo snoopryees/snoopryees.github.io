@@ -27,8 +27,7 @@ class Note {
 
     if (!this.isReadOnly) {
       this.removeBtn = document.createElement("button");
-      // Fallback to "remove" string in case MESSAGES is not loaded properly in some context
-      this.removeBtn.textContent = typeof MESSAGES !== 'undefined' ? MESSAGES.REMOVE : "remove";
+      this.removeBtn.textContent = MESSAGES.REMOVE;
       this.removeBtn.addEventListener("click", () => {
         this.remove();
       });
