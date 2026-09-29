@@ -1,0 +1,12 @@
+{
+    "name": "comp4537-lab4",
+    "version": "1.0.0",
+    "description": "COMP4537 Lab 4 - Node.js server",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
