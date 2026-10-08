@@ -1,4 +1,4 @@
-class MathOperations {
+export default class MathOperations {
     add(a, b) {
         return a + b;
     }
@@ -7,5 +7,3 @@ class MathOperations {
         return a - b;
     }
 }
-
-module.exports = MathOperations;

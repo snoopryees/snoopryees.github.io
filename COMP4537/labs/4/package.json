@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "COMP4537 Lab 4 - Node.js server",
     "main": "server.js",
+    "type": "module",
     "scripts": {
         "start": "node server.js"
     },
