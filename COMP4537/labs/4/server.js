@@ -28,7 +28,7 @@ class Lab4Server {
         const pathname = url.pathname.replace(/\/+$/, ""); // ignore trailing slash
 
         if (req.method !== "GET") {
-            return this.send(res, 405, "text/plain", "Method Not Allowed");
+            return this.send(res, 405, "text/plain", messages.methodNotAllowed);
         }
 
         if (pathname === `${Lab4Server.BASE}/getDate`) {
@@ -42,12 +42,12 @@ class Lab4Server {
             try {
                 fileName = decodeURIComponent(pathname.slice(`${Lab4Server.BASE}/readFile/`.length));
             } catch {
-                return this.send(res, 400, "text/plain", "Bad Request: malformed file name");
+                return this.send(res, 400, "text/plain", messages.malformedFileName);
             }
             return this.readFile(res, fileName);
         }
 
-        this.send(res, 404, "text/html", "<h1>404 Not Found</h1>");
+        this.send(res, 404, "text/html", messages.notFound);
     }
 
     // Part B
@@ -63,14 +63,14 @@ class Lab4Server {
     writeFile(res, params) {
         const text = params.get("text");
         if (!text) {
-            return this.send(res, 400, "text/plain", "Bad Request: missing ?text= parameter");
+            return this.send(res, 400, "text/plain", messages.missingText);
         }
         fs.appendFile(path.join(this.dataDir, "file.txt"), text + "\n", (err) => {
             if (err) {
-                return this.send(res, 500, "text/plain", "Error writing to file");
+                return this.send(res, 500, "text/plain", messages.writeError);
             }
             this.send(res, 200, "text/html",
-                `Appended "${Utils.escapeHtml(text)}" to file.txt`);
+                messages.appended.replace("%1", Utils.escapeHtml(text)));
         });
     }
 
@@ -79,12 +79,12 @@ class Lab4Server {
         // basename() stops requests like readFile/../server.js from escaping the data folder
         const safeName = path.basename(fileName);
         if (!safeName) {
-            return this.send(res, 400, "text/plain", "Bad Request: missing file name");
+            return this.send(res, 400, "text/plain", messages.missingFileName);
         }
         fs.readFile(path.join(this.dataDir, safeName), "utf8", (err, data) => {
             if (err) {
                 return this.send(res, 404, "text/html",
-                    `<h1>404 Not Found</h1><p>File "${Utils.escapeHtml(fileName)}" does not exist.</p>`);
+                    messages.fileNotFound.replace("%1", Utils.escapeHtml(fileName)));
             }
             // text/plain + no Content-Disposition => browser displays it instead of downloading
             this.send(res, 200, "text/plain; charset=utf-8", data);
