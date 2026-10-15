@@ -1,0 +1,235 @@
+:root {
+    --color-background: #0F172A;
+    --color-foreground: #F8FAFC;
+    --color-card: #1B2336;
+    --color-muted: #272F42;
+    --color-muted-foreground: #94A3B8;
+    --color-border: #475569;
+    --color-accent: #22C55E;
+    --color-accent-hover: #4ADE80;
+    --color-on-accent: #0F172A;
+    --color-error: #F87171;
+    --color-ring: #FFFFFF;
+
+    --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+    --radius: 8px;
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+#app {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: var(--space-4) var(--space-2);
+}
+
+.page-header {
+    margin-bottom: var(--space-3);
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.875rem;
+    font-weight: 600;
+}
+
+h2 {
+    margin: 0 0 var(--space-1);
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.subtitle,
+.muted,
+.hint {
+    color: var(--color-muted-foreground);
+}
+
+.subtitle {
+    margin: 4px 0 0;
+}
+
+.muted {
+    margin: 0 0 var(--space-2);
+}
+
+.hint {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: 0.875rem;
+}
+
+/* Layout */
+.layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr 2fr;
+    }
+
+    .card-wide {
+        grid-column: 1 / -1;
+    }
+}
+
+.card {
+    background: var(--color-card);
+    border: 1px solid var(--color-muted);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+    min-width: 0;
+}
+
+/* Form controls */
+.field-label {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-weight: 500;
+}
+
+.sql-input {
+    display: block;
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    resize: vertical;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+}
+
+.sql-input::placeholder {
+    color: var(--color-muted-foreground);
+}
+
+.sql-input:focus-visible,
+.btn:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+}
+
+.btn {
+    min-height: 44px;
+    padding: 0 var(--space-3);
+    border: none;
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms ease, opacity 150ms ease;
+}
+
+.btn-primary {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Response */
+.response {
+    min-height: 48px;
+}
+
+.message {
+    margin: 0 0 var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    overflow-wrap: anywhere;
+}
+
+.message-idle {
+    color: var(--color-muted-foreground);
+}
+
+.message-success {
+    color: var(--color-accent);
+}
+
+.message-error {
+    color: var(--color-error);
+}
+
+.status {
+    display: inline-block;
+    margin-right: var(--space-1);
+    padding: 2px 8px;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    font-size: 0.8125rem;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-muted);
+    border-radius: var(--radius);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+th,
+td {
+    padding: 10px 14px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    background: var(--color-muted);
+    color: var(--color-muted-foreground);
+    font-weight: 500;
+}
+
+tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+tbody td {
+    border-top: 1px solid var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn {
+        transition: none;
+    }
+}
