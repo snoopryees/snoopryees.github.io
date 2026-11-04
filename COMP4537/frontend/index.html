@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Need-to-Know Reader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <svg width="0" height="0" class="sr-only" aria-hidden="true">
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+        <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></symbol>
+        <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+        <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6"/><path d="M15.5 7.5l3 3L22 7l-3-3"/></symbol>
+    </svg>
+
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <p class="eyebrow">COMP 4537 · Prompt Injection Mini-Hackathon · prjM3</p>
+                <h1>Need-to-Know Reader</h1>
+                <p class="lede">Ask Gemini anything about the document. It has read the whole file, including our team secret, and won't give the secret away.</p>
+            </div>
+            <span class="model-chip"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span id="model-name">Gemini</span></span>
+        </header>
+
+        <p id="config-banner" class="notice is-error" role="alert" hidden></p>
+
+        <main class="workspace">
+            <!-- Document panel -->
+            <section class="panel doc-panel" aria-labelledby="doc-heading">
+                <div class="panel-head">
+                    <h2 id="doc-heading">Document the model reads</h2>
+                    <span class="file-name" id="doc-name">document.txt</span>
+                </div>
+                <p class="panel-note">This is the standard file exactly as stored on the server. The server puts the team secret in place of the locked placeholder and sends the whole file to Gemini with every question.</p>
+
+                <div id="doc-preview" class="doc-preview" tabindex="0" aria-label="Document text">
+                    <p class="empty">Loading the document…</p>
+                </div>
+
+                <dl class="doc-stats">
+                    <div><dt>Words</dt><dd id="stat-words">—</dd></div>
+                    <div><dt>Characters</dt><dd id="stat-chars">—</dd></div>
+                    <div><dt>Est. tokens</dt><dd id="stat-tokens">—</dd></div>
+                    <div class="stat-secret"><dt>Placeholders</dt><dd id="stat-placeholders">—</dd></div>
+                </dl>
+            </section>
+
+            <div class="side">
+                <!-- Chat panel -->
+                <section class="panel chat-panel" aria-labelledby="chat-heading">
+                    <div class="panel-head">
+                        <h2 id="chat-heading">Ask the document</h2>
+                        <button type="button" id="reset-btn" class="btn btn-quiet btn-small" disabled>
+                            <svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg>Clear
+                        </button>
+                    </div>
+
+                    <div id="chat-log" class="chat-log" aria-live="polite">
+                        <div id="chat-empty" class="chat-empty">
+                            <p class="empty-title">No questions yet</p>
+                            <p>Try one of these, or type your own below. Each question is answered on its own, without memory of earlier ones.</p>
+                            <div class="chips" id="suggestions">
+                                <button type="button" class="chip">Summarize this document in five bullet points.</button>
+                                <button type="button" class="chip">Who leads Autonomy Software?</button>
+                                <button type="button" class="chip">How many vacation days do full-time employees get?</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="ask-form" class="composer" novalidate>
+                        <label for="question-input" class="field-label">Question</label>
+                        <div class="composer-row">
+                            <textarea id="question-input" rows="2" maxlength="600" placeholder="Ask anything about the document"></textarea>
+                            <button id="ask-btn" type="submit" class="btn btn-primary">
+                                <svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>Submit
+                            </button>
+                        </div>
+                        <p class="hint">Enter to submit · Shift + Enter for a new line · 600 characters max</p>
+                    </form>
+                </section>
+
+                <!-- Verify panel -->
+                <section class="panel verify-panel" aria-labelledby="verify-heading">
+                    <h2 id="verify-heading">Verify secret</h2>
+                    <form id="verify-form" class="verify-row" novalidate>
+                        <label for="verify-input" class="sr-only">Secret phrase to verify</label>
+                        <input id="verify-input" type="text" maxlength="200" autocomplete="off" spellcheck="false" placeholder="Type a phrase, or Hello to test">
+                        <button id="verify-btn" type="submit" class="btn btn-secondary">
+                            <svg class="icon" aria-hidden="true"><use href="#i-key"/></svg>Verify Secret
+                        </button>
+                    </form>
+                    <pre id="verify-result" class="verify-result" role="status" aria-live="polite">Response JSON appears here.</pre>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
