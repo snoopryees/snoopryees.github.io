@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nathan Hong</title>
+  <meta name="description" content="Nathan Hong, Richmond, BC. BCIT Computer Systems Technology (AI/ML option), graduating December 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="wrap site-nav" aria-label="Sections">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="wrap hero">
+      <h1>Nathan Hong</h1>
+      <p class="hero-statement">I build tools and production components other people rely on.</p>
+      <p class="hero-facts">Richmond, BC. BCIT Computer Systems Technology (AI/ML option), graduating December 2026.</p>
+      <p class="actions">
+        <a class="button button-primary" href="mailto:natexhong@gmail.com">Email natexhong@gmail.com</a>
+        <a class="button" href="https://github.com/snoopryees">github.com/snoopryees</a>
+      </p>
+    </section>
+
+    <section class="wrap section" id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+      <div class="section-body">
+        <article class="job">
+          <h3>Dirk Interactive</h3>
+          <p class="job-role">Software Engineer (New Grad), Contract</p>
+          <p class="when">May 2026 – July 2026</p>
+          <p class="job-summary">Unannounced Unreal Engine 5 title; contracted after a one-month BCIT project.</p>
+          <ul class="points">
+            <li>Engineered a custom static analysis tool to scan the codebase and Blueprints for unlocalized design patterns and hardcoded strings, ensuring comprehensive internationalization compliance.</li>
+            <li>Built Blueprint-driven telemetry components in Unreal Engine 5 to track and collect data from a variety of runtime sources and collate it into a unified data stream for display.</li>
+          </ul>
+          <p class="job-env"><strong>Environment:</strong> Unreal Engine 5 (modular, plugin-based architecture), Blueprints, Perforce, agile team</p>
+          <p class="actions">
+            <a class="button" href="https://dirkinteractive.com">Visit dirkinteractive.com</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <div class="section-body cards">
+
+        <article class="card">
+          <h3>HIIPS360</h3>
+          <p class="card-about">Team project for WorkSafeBC (real client), COMP 4800</p>
+          <p class="when">Sep 2026 – present</p>
+          <ul class="points">
+            <li>Built and tested the AI hazard-suggestion service in a React PWA for WorkSafeBC prevention officers: added fallback Gemini models so suggestions still arrive during outages and quota limits, fixed AI bugs from the team's bug log, and wrote most of the AI test suite.</li>
+            <li>Built the Express and MongoDB auth API, landing and summary pages and PWA install; deployed the app on Railway; wrote the team's AI vision architecture research report for the client.</li>
+          </ul>
+          <ul class="tags" aria-label="Technologies">
+            <li>React</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>Gemini API</li><li>PWA</li>
+          </ul>
+          <p class="actions">
+            <a class="button" href="https://github.com/anthonyherradura/comp_4800_g09_worksafebc_HIIPS360">View the repository</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Pantry Pilot</h3>
+          <p class="card-about">Team project, COMP 4989. In progress; the repository is private.</p>
+          <p class="when">Oct 2026 – present</p>
+          <ul class="points">
+            <li>Built a Python pipeline that turns a photo of a grocery receipt into a pantry with best-before estimates: a fine-tuned Donut vision model reads each line, then code decodes item codes into barcodes, looks them up in Open Food Facts and estimates shelf life from USDA FoodKeeper data.</li>
+            <li>Wrote a synthetic receipt generator (thermal-print layouts with curl, tilt, fading, blur and lighting effects); adding 400 generated receipts to training raised correct product matches on unseen real receipts from 17% to 83%.</li>
+          </ul>
+          <ul class="tags" aria-label="Technologies">
+            <li>Python</li><li>Hugging Face Transformers</li><li>Donut</li><li>synthetic data</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>good HOTPOT game</h3>
+          <p class="card-about">Side project with 3 friends on Roblox</p>
+          <p class="when">June 2023 – Nov 2026</p>
+          <ul class="points">
+            <li>Designed and built a social hotpot restaurant game in Luau with an AI coding agent (Claude Code and Roblox Studio MCP): table claiming, NPC delivery, data-driven iPad ordering, and chopstick cooking with doneness stages.</li>
+          </ul>
+          <ul class="tags" aria-label="Technologies">
+            <li>Roblox Studio</li><li>Luau</li>
+          </ul>
+          <p class="actions">
+            <a class="button" href="https://www.roblox.com/games/13888564405/good-HOTPOT-game">Play it on Roblox</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Abalone AI Agent</h3>
+          <p class="card-about">Team of 4, COMP 3981</p>
+          <p class="when">Feb – Apr 2026</p>
+          <ul class="points">
+            <li>Designed the heuristic evaluation function adopted by the team's Python minimax agent (iterative deepening, alpha-beta pruning, transposition table) and tuned its weights; the agent won 22 of 24 games in a round-robin against three other agents.</li>
+            <li>Built the game prototype and GUI and designed the state space generator.</li>
+          </ul>
+          <ul class="tags" aria-label="Technologies">
+            <li>Python</li><li>game AI</li><li>minimax</li>
+          </ul>
+          <p class="actions">
+            <a class="button" href="https://abalone-agent-game.onrender.com/">Open the live demo</a>
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="wrap section" id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Skills</h2>
+      <dl class="section-body skills">
+        <div>
+          <dt>Languages</dt>
+          <dd>Python, Java, JavaScript, Luau, C, SQL</dd>
+        </div>
+        <div>
+          <dt>Game dev</dt>
+          <dd>Unreal Engine 5, Blueprints, Roblox Studio, game telemetry, localization</dd>
+        </div>
+        <div>
+          <dt>AI/ML</dt>
+          <dd>model fine-tuning (Hugging Face Transformers), synthetic data generation, Gemini API, game AI</dd>
+        </div>
+        <div>
+          <dt>Web</dt>
+          <dd>React, Node.js, Express, MongoDB, PWAs, HTML, CSS</dd>
+        </div>
+        <div>
+          <dt>Tools</dt>
+          <dd>Perforce, Git, Jira, Trello, Figma</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="wrap section" id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <div class="section-body">
+        <p class="contact-line"><a href="mailto:natexhong@gmail.com">natexhong@gmail.com</a></p>
+        <p class="contact-line"><a href="https://github.com/snoopryees">github.com/snoopryees</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>Nathan Hong, Richmond, BC</p>
+  </footer>
+</body>
+</html>
