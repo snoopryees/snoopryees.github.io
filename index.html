@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nathan Hong</title>
   <meta name="description" content="Nathan Hong, Richmond, BC. BCIT Computer Systems Technology (AI/ML option), graduating December 2026.">
-  <meta name="theme-color" content="#f5f8f5">
+  <meta name="theme-color" content="#f4f7f8">
   <meta property="og:title" content="Nathan Hong">
   <meta property="og:description" content="I build tools and production components other people rely on.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://snoopryees.github.io/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23094a37'/%3E%3Cpath d='M9 23V9h3.2l7.6 9.1V9H23v14h-3.2l-7.6-9.1V23z' fill='%23f5f8f5'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f2233'/%3E%3Cpath d='M9 23V9h3.2l7.6 9.1V9H23v14h-3.2l-7.6-9.1V23z' fill='%23f4f7f8'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -90,13 +90,14 @@
           <ul class="points">
             <li>Built a Python pipeline that turns a photo of a grocery receipt into a pantry with best-before estimates: a fine-tuned Donut vision model reads each line, then code decodes item codes into barcodes, looks them up in Open Food Facts and estimates shelf life from USDA FoodKeeper data.</li>
             <li>Wrote a synthetic receipt generator (thermal-print layouts with curl, tilt, fading, blur and lighting effects); adding 400 generated receipts to training raised correct product matches on unseen real receipts from 17% to 83%.</li>
+            <li>Fine-tuned the Donut reader with Hugging Face Transformers on a single 11 GB GPU.</li>
           </ul>
           <ul class="tags" aria-label="Technologies">
             <li>Python</li><li>Hugging Face Transformers</li><li>Donut</li><li>synthetic data</li>
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card card-wide">
           <div class="card-head">
             <h3>good HOTPOT game</h3>
             <p class="card-about">Side project with 3 friends on Roblox</p>
@@ -113,15 +114,16 @@
           </p>
         </article>
 
-        <article class="card">
+        <article class="card card-wide">
           <div class="card-head">
             <h3>Abalone AI Agent</h3>
             <p class="card-about">Team of 4, COMP 3981</p>
             <p class="when">Feb – Apr 2026</p>
           </div>
           <ul class="points">
-            <li>Designed the heuristic evaluation function adopted by the team's Python minimax agent (iterative deepening, alpha-beta pruning, transposition table) and tuned its weights; the agent won 22 of 24 games in a round-robin against three other agents.</li>
-            <li>Built the game prototype and GUI and designed the state space generator.</li>
+            <li>Designed the heuristic evaluation function adopted by the team's Python minimax agent (iterative deepening, alpha-beta pruning, transposition table): material, center and edge position, structural cohesion, tactical threats, and phase-aware weights.</li>
+            <li>Tuned the evaluation weights; the agent won 22 of 24 games (91.7%) in a 48-game round-robin against three other agents.</li>
+            <li>Built the game prototype and GUI, designed the state space generator architecture, improved GUI and generator performance, and produced the Figma wireframes.</li>
           </ul>
           <ul class="tags" aria-label="Technologies">
             <li>Python</li><li>game AI</li><li>minimax</li>
@@ -143,21 +145,37 @@
         </div>
         <div>
           <dt>Game dev</dt>
-          <dd>Unreal Engine 5, Blueprints, Roblox Studio, game telemetry, localization</dd>
+          <dd>Unreal Engine 5, Blueprints, Roblox Studio (Luau), game telemetry and analytics, localization (string tables)</dd>
         </div>
         <div>
           <dt>AI/ML</dt>
-          <dd>model fine-tuning (Hugging Face Transformers), synthetic data generation, Gemini API, game AI</dd>
+          <dd>model fine-tuning (Hugging Face Transformers), synthetic data generation, LLM integration (Gemini API), game AI, minimax and alpha-beta search</dd>
         </div>
         <div>
           <dt>Web</dt>
-          <dd>React, Node.js, Express, MongoDB, PWAs, HTML, CSS</dd>
+          <dd>React, Node.js, Express, MongoDB, progressive web apps, HTML, CSS, responsive design</dd>
+        </div>
+        <div>
+          <dt>UX/UI design</dt>
+          <dd>user research, wireframing, prototyping, usability testing, user flows</dd>
         </div>
         <div>
           <dt>Tools</dt>
-          <dd>Perforce, Git, Jira, Trello, Figma</dd>
+          <dd>Perforce (P4V), Git, Jira, Trello, Figma</dd>
         </div>
       </dl>
+    </section>
+
+    <section class="wrap section" id="education" aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <div class="section-body">
+        <article>
+          <h3>British Columbia Institute of Technology</h3>
+          <p class="school-where">Diploma in Computer Systems Technology (AI/ML Option), Vancouver, BC</p>
+          <p class="when">January 2025 – present, expected graduation December 2026</p>
+          <p class="school-detail">Relevant coursework: Operating Systems, Artificial Intelligence (Python game-playing agents)</p>
+        </article>
+      </div>
     </section>
 
     <section class="wrap section" id="contact" aria-labelledby="contact-heading">

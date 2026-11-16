@@ -1,14 +1,14 @@
 /* Nathan Hong portfolio */
 
 :root {
-  --paper: #f5f8f5;
-  --surface: #fdfefd;
-  --ink: #15231d;
-  --muted: #55635c;
-  --line: #d3dcd6;
-  --pine: #0e6b4f;
-  --pine-deep: #094a37;
-  --mint: #e0f0e7;
+  --paper: #f4f7f8;
+  --surface: #fcfefe;
+  --ink: #0f2233;
+  --muted: #536270;
+  --line: #d2dbe0;
+  --accent: #0b7285;
+  --accent-deep: #0a4f5c;
+  --tint: #dcf0f3;
 
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
@@ -27,12 +27,12 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(14, 107, 79, 0.15);
-  scrollbar-color: var(--pine) var(--paper);
+  -webkit-tap-highlight-color: rgba(11, 114, 133, 0.15);
+  scrollbar-color: var(--accent) var(--paper);
 }
 
 ::selection {
-  background: var(--pine-deep);
+  background: var(--ink);
   color: var(--paper);
 }
 
@@ -71,18 +71,18 @@ ul {
 }
 
 a {
-  color: var(--pine);
+  color: var(--accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
 
 a:hover {
-  color: var(--pine-deep);
+  color: var(--accent-deep);
   text-decoration-thickness: 2px;
 }
 
 :focus-visible {
-  outline: 3px solid var(--pine);
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -126,7 +126,7 @@ a:hover {
 }
 
 .site-nav a:hover {
-  color: var(--pine);
+  color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 2px;
 }
@@ -143,7 +143,7 @@ a:hover {
   font-size: clamp(3.25rem, 13vw, 9rem);
   line-height: 0.92;
   letter-spacing: -0.035em;
-  color: var(--pine-deep);
+  color: var(--ink);
 }
 
 .hero h1 .word {
@@ -186,9 +186,9 @@ a:hover {
 .button {
   display: inline-block;
   padding: 0.6rem 1.1rem;
-  border: 1.5px solid var(--pine);
+  border: 1.5px solid var(--accent);
   border-radius: 999px;
-  color: var(--pine-deep);
+  color: var(--accent-deep);
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.3;
@@ -204,18 +204,18 @@ a:hover {
 }
 
 .button:hover {
-  background: var(--mint);
-  color: var(--pine-deep);
+  background: var(--tint);
+  color: var(--accent-deep);
 }
 
 .button-primary {
-  background: var(--pine);
+  background: var(--accent);
   color: var(--surface);
 }
 
 .button-primary:hover {
-  background: var(--pine-deep);
-  border-color: var(--pine-deep);
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
   color: var(--surface);
 }
 
@@ -283,7 +283,7 @@ h3 {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background: var(--pine);
+  background: var(--accent);
 }
 
 /* Experience */
@@ -316,12 +316,6 @@ h3 {
   gap: 1.25rem;
 }
 
-@media (min-width: 46rem) {
-  .cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 .card {
   display: flex;
   flex-direction: column;
@@ -351,8 +345,8 @@ h3 {
 .tags li {
   padding: 0.15rem 0.6rem;
   border-radius: 6px;
-  background: var(--mint);
-  color: var(--pine-deep);
+  background: var(--tint);
+  color: var(--accent-deep);
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -428,6 +422,18 @@ h3 {
     grid-template-columns: 9rem minmax(0, 1fr);
     gap: 1.5rem;
   }
+}
+
+/* Education */
+
+.school-where {
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+.school-detail {
+  max-width: var(--measure);
+  margin-top: 1rem;
 }
 
 /* Contact and footer */
