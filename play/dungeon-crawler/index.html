@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dungeon Crawler | Nathan Hong</title>
+  <meta name="description" content="A text-based dungeon-crawler roguelike written in Python, running in your browser.">
+  <meta name="theme-color" content="#f4f7f8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f7f8;
+      --surface: #fcfefe;
+      --ink: #0f2233;
+      --muted: #536270;
+      --line: #d2dbe0;
+      --accent: #0b7285;
+      --accent-deep: #0a4f5c;
+      --tint: #dcf0f3;
+      --screen: #0f2233;
+      --screen-text: #e4eef2;
+      --screen-dim: #8fa6b3;
+      --screen-you: #7fd6e3;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+    }
+
+    a { color: var(--accent); text-underline-offset: 0.2em; }
+    a:hover { color: var(--accent-deep); }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+    .wrap { max-width: 52rem; margin-inline: auto; padding: 1.25rem 1.25rem 3rem; }
+
+    .back { font-weight: 500; }
+
+    h1 {
+      margin: 1.25rem 0 0;
+      font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      font-size: clamp(2.25rem, 8vw, 3.75rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .about { max-width: 60ch; margin: 0.75rem 0 1.5rem; color: var(--muted); }
+
+    .screen {
+      height: min(60vh, 34rem);
+      min-height: 18rem;
+      overflow-y: auto;
+      padding: 1rem;
+      background: var(--screen);
+      color: var(--screen-text);
+      border-radius: 12px 12px 0 0;
+      font-family: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      scrollbar-color: var(--screen-dim) var(--screen);
+    }
+
+    .screen .you { color: var(--screen-you); }
+    .screen .note { color: var(--screen-dim); }
+
+    .entry {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.6rem;
+      background: var(--screen);
+      border-top: 1px solid #24405a;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .entry input {
+      flex: 1;
+      min-width: 0;
+      padding: 0.55rem 0.75rem;
+      background: #17324a;
+      color: var(--screen-text);
+      border: 1px solid #2f5068;
+      border-radius: 8px;
+      font: inherit;
+      font-family: ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace;
+    }
+
+    .entry input::placeholder { color: var(--screen-dim); }
+    .entry input:disabled { opacity: 0.6; }
+
+    button {
+      padding: 0.5rem 0.9rem;
+      background: var(--surface);
+      color: var(--accent-deep);
+      border: 1.5px solid var(--accent);
+      border-radius: 999px;
+      font: inherit;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    button:hover:not(:disabled) { background: var(--tint); }
+    button:active:not(:disabled) { transform: translateY(1px); }
+    button:disabled { opacity: 0.45; cursor: default; }
+
+    .entry button { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+    .entry button:hover:not(:disabled) { background: var(--accent-deep); }
+
+    .keys { display: grid; gap: 0.75rem; margin-top: 1.25rem; }
+    .keys > div { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+    .keys .label { min-width: 4.5rem; color: var(--muted); font-weight: 500; font-size: 0.9375rem; }
+
+    .foot { margin-top: 1.75rem; color: var(--muted); font-size: 0.9375rem; }
+    .foot p { max-width: 62ch; margin: 0 0 0.5rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../">Back to Nathan Hong's portfolio</a>
+    <h1>Dungeon Crawler</h1>
+    <p class="about">A text-based dungeon-crawler roguelike I wrote in Python for COMP 1510. Explore three themed floors, win fights at rock-paper-scissors, buy potions and upgrades, and beat the final boss.</p>
+
+    <div class="screen" id="screen" role="log" aria-live="polite" aria-label="Game output"></div>
+    <form class="entry" id="entry" autocomplete="off">
+      <input id="command" type="text" aria-label="Type a command" placeholder="Loading Python…" autocapitalize="none" autocorrect="off" spellcheck="false" disabled>
+      <button type="submit" id="send" disabled>Enter</button>
+    </form>
+
+    <div class="keys" id="keys" aria-label="Command shortcuts">
+      <div><span class="label">Move</span>
+        <button type="button" data-send="n">North</button>
+        <button type="button" data-send="s">South</button>
+        <button type="button" data-send="e">East</button>
+        <button type="button" data-send="w">West</button>
+      </div>
+      <div><span class="label">Actions</span>
+        <button type="button" data-send="map">Map</button>
+        <button type="button" data-send="int">Interact</button>
+        <button type="button" data-send="item">Items</button>
+        <button type="button" data-send="help">Help</button>
+        <button type="button" data-send="quit">Save and quit</button>
+      </div>
+      <div><span class="label">Fight</span>
+        <button type="button" data-send="r">Rock</button>
+        <button type="button" data-send="p">Paper</button>
+        <button type="button" data-send="s">Scissors</button>
+      </div>
+      <div><span class="label">Choose</span>
+        <button type="button" data-send="1">1</button>
+        <button type="button" data-send="2">2</button>
+        <button type="button" data-send="3">3</button>
+        <button type="button" data-send="4">4</button>
+      </div>
+    </div>
+
+    <div class="foot">
+      <p>This is the original Python source running in your browser through Pyodide. The first load downloads the Python runtime, which can take a few seconds.</p>
+      <p>Your saved character is kept in this browser only.</p>
+      <p><button type="button" id="restart" disabled>Restart the game</button></p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+  <script>
+    const SAVE_FILE = "character_save.json";
+    const SAVE_KEY = "dungeon-crawler-save";
+    const MODULES = ["characters", "combat", "inputs", "game"];
+
+    const screen = document.getElementById("screen");
+    const entry = document.getElementById("entry");
+    const command = document.getElementById("command");
+    const send = document.getElementById("send");
+    const restart = document.getElementById("restart");
+    const shortcutButtons = [...document.querySelectorAll("[data-send]")];
+
+    let pyodide = null;
+    let waiting = null;
+
+    function write(text, className) {
+      const span = document.createElement("span");
+      if (className) span.className = className;
+      span.textContent = text;
+      screen.append(span);
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    function setReady(ready) {
+      command.disabled = !ready;
+      send.disabled = !ready;
+      shortcutButtons.forEach(function (button) { button.disabled = !ready; });
+      command.placeholder = ready ? "Type a command, or use the buttons below" : "";
+      if (ready && window.matchMedia("(pointer: fine)").matches) command.focus();
+    }
+
+    function storeSave() {
+      try {
+        if (pyodide.FS.analyzePath(SAVE_FILE).exists) {
+          localStorage.setItem(SAVE_KEY, pyodide.FS.readFile(SAVE_FILE, { encoding: "utf8" }));
+        }
+      } catch (error) { /* saving is a convenience; the game still runs without it */ }
+    }
+
+    function restoreSave() {
+      try {
+        const saved = localStorage.getItem(SAVE_KEY);
+        if (saved) pyodide.FS.writeFile(SAVE_FILE, saved);
+      } catch (error) { /* no saved game available */ }
+    }
+
+    // Python calls this in place of input(): show the prompt, then wait for the player.
+    function askPlayer(prompt) {
+      write(prompt || "");
+      storeSave();
+      setReady(true);
+      return new Promise(function (resolve) { waiting = resolve; });
+    }
+
+    function answer(text) {
+      if (!waiting) return;
+      const resolve = waiting;
+      waiting = null;
+      setReady(false);
+      write(text + "\n", "you");
+      resolve(text);
+    }
+
+    entry.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const text = command.value;
+      command.value = "";
+      answer(text);
+    });
+
+    shortcutButtons.forEach(function (button) {
+      button.addEventListener("click", function () { answer(button.dataset.send); });
+    });
+
+    async function play() {
+      restart.disabled = true;
+      screen.textContent = "";
+      restoreSave();
+      try {
+        await pyodide.runPythonAsync(
+          "import game\n" +
+          "try:\n" +
+          "    await game.main()\n" +
+          "except SystemExit:\n" +
+          "    pass\n"
+        );
+        storeSave();
+        write("\nThe game has ended. Choose Restart the game to play again.\n", "note");
+      } catch (error) {
+        write("\nThe game stopped because of an error:\n" + error.message + "\n", "note");
+      }
+      waiting = null;
+      setReady(false);
+      restart.disabled = false;
+    }
+
+    restart.addEventListener("click", play);
+
+    async function start() {
+      write("Loading Python. This can take a few seconds the first time.\n", "note");
+      try {
+        pyodide = await loadPyodide({ stdout: function (line) { write(line + "\n"); }, stderr: function (line) { write(line + "\n", "note"); } });
+        const sources = {};
+        for (const name of MODULES) {
+          const response = await fetch(name + ".py");
+          if (!response.ok) throw new Error("Could not load " + name + ".py");
+          sources[name] = await response.text();
+        }
+        const helper = await (await fetch("webport.py")).text();
+        pyodide.FS.writeFile("webport.py", helper);
+        pyodide.globals.set("game_sources", pyodide.toPy(sources));
+        pyodide.globals.set("ask_player", askPlayer);
+        await pyodide.runPythonAsync(
+          "import builtins, webport\n" +
+          "for name, source in webport.transform(game_sources).items():\n" +
+          "    with open(name + '.py', 'w', encoding='utf-8') as module_file:\n" +
+          "        module_file.write(source)\n" +
+          "builtins.ainput_ = ask_player\n"
+        );
+      } catch (error) {
+        write("\nPython could not be loaded: " + error.message + "\nCheck your connection and reload the page.\n", "note");
+        return;
+      }
+      play();
+    }
+
+    start();
+  </script>
+</body>
+</html>
