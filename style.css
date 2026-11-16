@@ -394,6 +394,46 @@ h3 {
   }
 }
 
+/* Earlier projects: smaller cards than the main four */
+
+.cards-small {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+}
+
+.card-small {
+  padding: 1.25rem;
+  border-radius: 10px;
+}
+
+.card-small h3 {
+  font-size: 1.25rem;
+}
+
+.card-small .card-about {
+  font-size: 1rem;
+}
+
+.card-small .points {
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+  font-size: 0.9375rem;
+}
+
+.card-small .tags {
+  margin-top: 1rem;
+}
+
+.card-small .actions {
+  padding-top: 1.1rem;
+}
+
+.button-small {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9375rem;
+}
+
 /* Skills */
 
 .skills {
