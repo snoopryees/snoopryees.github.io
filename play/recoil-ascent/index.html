@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recoil Ascent | Nathan Hong</title>
+  <meta name="description" content="A 2D physics platformer written in Java with LibGDX, where the gun's recoil is how you move. Playable in your browser.">
+  <meta name="theme-color" content="#f4f7f8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f7f8;
+      --ink: #0f2233;
+      --muted: #536270;
+      --line: #d2dbe0;
+      --accent: #0b7285;
+      --accent-deep: #0a4f5c;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.55;
+    }
+
+    a { color: var(--accent); text-underline-offset: 0.2em; }
+    a:hover { color: var(--accent-deep); }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+    .wrap { max-width: 68rem; margin-inline: auto; padding: 1.25rem 1.25rem 3rem; }
+    .back { font-weight: 500; }
+
+    h1 {
+      margin: 1.25rem 0 0;
+      font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      font-size: clamp(2.25rem, 8vw, 3.75rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .about { max-width: 60ch; margin: 0.75rem 0 1.5rem; color: var(--muted); }
+
+    .layout { display: grid; gap: 1.75rem; align-items: start; }
+
+    @media (min-width: 60rem) {
+      .layout { grid-template-columns: minmax(0, auto) minmax(15rem, 1fr); }
+    }
+
+    .stage {
+      width: min(100%, 960px, max(20rem, calc(100vh - 14.5rem)));
+      min-width: min(100%, 20rem);
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    #canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      image-rendering: pixelated;
+    }
+
+    h2 {
+      margin: 0 0 0.6rem;
+      font-family: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .keys { margin: 0 0 1.5rem; display: grid; grid-template-columns: auto 1fr; gap: 0.45rem 1rem; }
+    .keys dt { font-weight: 600; }
+    .keys dd { margin: 0; color: var(--muted); }
+
+    kbd {
+      display: inline-block;
+      padding: 0.05rem 0.45rem;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      border-radius: 6px;
+      background: #fcfefe;
+      font: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .note { margin: 0 0 0.75rem; max-width: 46ch; color: var(--muted); font-size: 0.9375rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../../">Back to Nathan Hong's portfolio</a>
+    <h1>Recoil Ascent</h1>
+    <p class="about">A 2D physics platformer I wrote in Java with LibGDX for COMP 2522. Your gun's recoil is how you move: aim away from where you want to go, fire, and climb to the top as fast as you can.</p>
+
+    <div class="layout">
+      <div class="stage"><canvas id="canvas" tabindex="0" aria-label="Recoil Ascent game"></canvas></div>
+
+      <div>
+        <h2>Controls</h2>
+        <dl class="keys">
+          <dt>Start</dt><dd><kbd>Enter</kbd></dd>
+          <dt>Walk</dt><dd><kbd>A</kbd> <kbd>D</kbd> or the left and right arrows</dd>
+          <dt>Jump</dt><dd><kbd>Space</kbd></dd>
+          <dt>Aim</dt><dd><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> or the arrows, in 8 directions</dd>
+          <dt>Fire</dt><dd><kbd>Shift</kbd> or <kbd>J</kbd></dd>
+        </dl>
+        <p class="note">Click the game first so it receives your keys. It needs a keyboard, so it will not play on a phone.</p>
+        <p class="note">This is the original Java game compiled to JavaScript with TeaVM. Your best times are kept in this browser only.</p>
+        <p class="note">Art: <a href="https://crumpaloo.itch.io/whimsy-hallow">Whimsy Hallow</a> character and tileset, and <a href="https://ranitaya-studios.itch.io/ranitayas-guns-pack-16-pixelart-guns">Ranitaya's guns pack</a>.</p>
+        <p class="note"><a href="https://github.com/snoopryees/COMP-2522-202530-Term-Project-Nathan">View the source repository</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Keep the page from scrolling while the game is using these keys.
+    window.addEventListener("keydown", function (event) {
+      if ([" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) event.preventDefault();
+    }, { capture: true });
+    window.addEventListener("load", function () {
+      main();
+      document.getElementById("canvas").focus({ preventScroll: true });
+    });
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

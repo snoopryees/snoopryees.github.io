@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="23" height="110" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="6">
+ <tileset firstgid="1" name="Whimsy_Hallow_Dungeon_Asset_Pack_V1.62" tilewidth="16" tileheight="16" tilecount="30227" columns="167">
+  <image source="Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.png" trans="000000" width="2680" height="2896"/>
+ </tileset>
+ <tileset firstgid="30228" source="DifferentTransparency.tsx"/>
+ <tileset firstgid="60804" source="Whimsy_Hallow_Dungeon_Asset_Pack_V1.62.tsx"/>
+ <layer id="6" name="Background 2" width="23" height="110">
+  <data encoding="base64" compression="zlib">
+   eJzt10EKgCAQRuHpCAVBRwi6Qgdt2y3qdrkRRMqFzJ8I74EbF5/gYkQzs3nzXzG17XGOt9f6TrCxsbGxsbGxsbGxsbGxsbF7t9fTf2FjY2N72+n88rTz2ai0FalctU1E5fIZ2MJWzADlTFTZylneq52foapkl/43REREsXEfbApL0RXcW2TX9PUe1r6Rb//x3Ev3j+X/u3gAMckV4g==
+  </data>
+ </layer>
+ <layer id="4" name="Background" width="23" height="110">
+  <data encoding="base64" compression="zlib">
+   eJztmLtKA0EUhv88hGCTSykJqKABX0Fr38IL2qghCaQJWqiFQrBMWlt9hOyOnZdSbY2tvoEniGZZdjPjZMbo8n/wwTLFtydD4MACfsmHQEEsiqXQbaMfeVaW7bTGhgI2xS1xW9m1XTQIIYSQnzBTGUkIIYQQcw67wFHXT3u+Byz0/LQJyRLnV2ididOew5TbOnAn3osPdbftvQawLx6ItYbbdr4JFMSiWGq6bfelF4ihqBy3SfZp3/hr1+Y+9cFOGdgt+2n/BtHvCJPqusc222z/vfZqB1jr+Gm/SffdU3ua9/0SAAPxNXDfPg6BE/E0nLwd7y8pYFmsqtEeTdKm/SjNJ/FZ0/7qp71Ht8vGzav7DbZ70mTXJp3r7iFtzvg92c5t+x9km22T9sVs7tv/NDfbbGepHd0PQ0z2jm5HphFvjDsf9qLvMWkvXie311eSzy8ruZZJ25ak9gfXdzzj
+  </data>
+ </layer>
+ <layer id="8" name="Win Objects" width="23" height="110">
+  <data encoding="base64" compression="zlib">
+   eJztzDEBACAMxMBXAv6FUF3gATpxN2ZI0m9UMqvnsU6ry/eLBwAAAAAAAAAAAH/aPu4JwQ==
+  </data>
+ </layer>
+ <layer id="5" name="Platforms" width="23" height="110">
+  <data encoding="base64" compression="zlib">
+   eJzt2DEKgEAMBMD9z9X6V7W5p2phJ4gIh0JmYPtAICxJeGvpyXpk6x8Pwi17AiqZWjKfAWrSfYCn3Av+Tq8FYBT/EwBGmNs1UJ3eBVSzA7NoFMY=
+  </data>
+ </layer>
+ <layer id="1" name="Tile Layer 1" width="23" height="110">
+  <data encoding="base64" compression="zlib">
+   eJzt2sERgjAQBdAU4UGP3mRswlJoQ090AqU4eIIYSlDGSlwO0UxADWGXIXH/zI4e4BHXKEEsEyEuBFUmIoMiyRx2ZVUNJaGuUAqqsY7vsn3oPYnVvuXDjxi2T9hm+59tOeG4sfaEbbbZdrNh7VW4rNnMmNup5POaDbYpKMdNZVOOWxHamInFlla/txtxwLLteXJa+8q/5wmGXb8/q+i2DnyXtFNs2D/trinued9+5L338hWXdVBn6+fYc5DSNhOSzf1ejt0Y/fKJ/q1m6DyvJtpmBr5jyWxJaNeEdsU9mbUnmAnd1tcKFDZFiO1zoONmm222HfNt7YMZtqOyKc8NbMdjhzq/2WabxHb9H8nSxr1Ee+y9nTE2ZgK3W7NWe797PLCfsK3jTgizfF9Hdw6zLUQ7c7GhUo/q2U/yB6cF
+  </data>
+ </layer>
+ <objectgroup id="3" name="Object Layer 1">
+  <object id="1" name="Knight_spawn" x="183.261" y="1728.45"/>
+ </objectgroup>
+</map>
