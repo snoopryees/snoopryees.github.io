@@ -127,6 +127,24 @@
     window.addEventListener("keydown", function (event) {
       if ([" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) event.preventDefault();
     }, { capture: true });
+    // The end screen's "exit" does nothing in a browser, so reload back to the start screen instead.
+    // The game saves the score to IndexedDB when the name is submitted; the next Enter restarts.
+    (function () {
+      var started = false;
+      var scoreSaved = false;
+      ["put", "add"].forEach(function (method) {
+        var original = IDBObjectStore.prototype[method];
+        IDBObjectStore.prototype[method] = function () {
+          if (started) scoreSaved = true;
+          return original.apply(this, arguments);
+        };
+      });
+      window.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter" || event.repeat) return;
+        if (scoreSaved) window.location.reload();
+        else started = true;
+      }, { capture: true });
+    })();
     window.addEventListener("load", function () {
       main();
       document.getElementById("canvas").focus({ preventScroll: true });
