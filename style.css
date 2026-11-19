@@ -727,6 +727,13 @@ h3 {
   padding-block: 0.3rem;
 }
 
+.contact-alt {
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
 .site-footer {
   padding-block: 2rem 3rem;
   border-top: 1px solid var(--ink);
