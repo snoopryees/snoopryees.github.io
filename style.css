@@ -220,7 +220,7 @@ a:hover {
 }
 
 .hero-statement {
-  max-width: 22ch;
+  max-width: 26ch;
   margin-top: clamp(1.5rem, 4vw, 2.5rem);
   font-family: var(--display);
   font-weight: 500;
@@ -499,6 +499,30 @@ h3 {
   object-position: top;
 }
 
+/* One large shot plus two stacked: all 16:9, so the 2fr/1fr split lines up exactly */
+.card-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.card-gallery img:first-child {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 46rem) {
+  .card-gallery {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .card-gallery img:first-child {
+    grid-column: auto;
+    grid-row: 1 / 3;
+    height: 100%;
+  }
+}
+
 .card-about {
   margin-top: 0.4rem;
   font-weight: 500;
@@ -588,6 +612,7 @@ h3 {
 
   .card-wide .points {
     grid-area: points;
+    align-content: start;
     margin-top: 0.35rem;
   }
 
