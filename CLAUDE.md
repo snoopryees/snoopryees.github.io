@@ -14,7 +14,7 @@ Nathan Hong's portfolio, served by GitHub Pages at https://snoopryees.github.io/
 ## Conventions
 
 - Motion: ease-out (`--ease-out`) for entrances, no bounce, exits shorter than entrances, everything inside `prefers-reduced-motion: no-preference`.
-- The accent (`--accent`, orchid) is too light for body text on cream. Use `--accent-ink` for links and small text, and `--accent` for fills, large display type and decoration.
+- The accent (`--accent`, sakura pink) is for fills and highlights only; it is too faint on cream for text or small marks. Use `--accent-ink` (deep rose) for links, bullets and small accent marks.
 - Check that new text/background pairs reach 4.5:1 contrast.
 
 ## Cache busting

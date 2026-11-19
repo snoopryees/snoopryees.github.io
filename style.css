@@ -1,17 +1,16 @@
 /* Nathan Hong portfolio */
 
 :root {
-  /* Three-colour editorial palette: cream, ink, one loud accent */
+  /* Three-colour editorial palette: cream, ink, one soft sakura accent */
   --paper: #ece6dc;
   --surface: #f6f2eb;
   --ink: #050505;
   --muted: #5e564b;
   --line: #d6cdbf;
   --grid: rgba(5, 5, 5, 0.06);
-  --accent: #e65bc4; /* fills, large type, decoration only: 2.5:1 on paper */
-  --accent-ink: #9b1b80; /* links and small accent text: 5.9:1 on paper */
-  --tint: #f7ddef;
-  --sakura: #f9cde3; /* soft pink for text selection: ink on it is about 14:1 */
+  --accent: #f19bc3; /* sakura: fills and highlights only (ink on it is 9.9:1; too faint on paper for small marks) */
+  --accent-ink: #a8336c; /* deep rose: links, bullets, small accent marks (5:1 on paper) */
+  --tint: #fbe4ee;
 
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
@@ -33,12 +32,12 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(230, 91, 196, 0.2);
+  -webkit-tap-highlight-color: rgba(241, 155, 195, 0.2);
   scrollbar-color: var(--ink) var(--paper);
 }
 
 ::selection {
-  background: var(--sakura);
+  background: var(--accent);
   color: var(--ink);
 }
 
@@ -376,7 +375,7 @@ h3 {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
 }
 
 /* Experience */
@@ -552,7 +551,7 @@ h3 {
 }
 
 .stat-num .arrow {
-  color: var(--accent);
+  color: var(--accent-ink);
 }
 
 .stat-label {
@@ -892,10 +891,10 @@ html:not(.js) .copy {
 
 @keyframes pulse {
   from {
-    box-shadow: 0 0 0 0 rgba(230, 91, 196, 0.6);
+    box-shadow: 0 0 0 0 rgba(241, 155, 195, 0.6);
   }
   to {
-    box-shadow: 0 0 0 0.6rem rgba(230, 91, 196, 0);
+    box-shadow: 0 0 0 0.6rem rgba(241, 155, 195, 0);
   }
 }
 
