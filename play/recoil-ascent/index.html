@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Recoil Ascent | Nathan Hong</title>
   <meta name="description" content="A 2D physics platformer written in Java with LibGDX, where the gun's recoil is how you move. Playable in your browser.">
-  <meta name="theme-color" content="#f4f7f8">
+  <meta name="theme-color" content="#ece6dc">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f4f7f8;
-      --ink: #0f2233;
-      --muted: #536270;
-      --line: #d2dbe0;
-      --accent: #0b7285;
-      --accent-deep: #0a4f5c;
+      --paper: #ece6dc;
+      --ink: #050505;
+      --muted: #5e564b;
+      --line: #d6cdbf;
+      --accent: #9b1b80; /* the site's --accent-ink: orchid dark enough for text */
+      --accent-deep: #050505;
     }
 
     *, *::before, *::after { box-sizing: border-box; }
@@ -60,7 +60,48 @@
       border-radius: 12px;
       overflow: hidden;
       line-height: 0;
+      position: relative;
     }
+
+    /* Shown while the ~1 MB game script downloads; fades out once the game boots. */
+    .loading {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 0.9rem;
+      background: #000;
+      color: #ece6dc;
+      line-height: 1.4;
+      font-weight: 500;
+      transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 240ms;
+    }
+
+    .loading.done { opacity: 0; visibility: hidden; }
+
+    .loading-bar {
+      width: 9rem;
+      height: 4px;
+      border-radius: 2px;
+      background: #2b2723;
+      overflow: hidden;
+    }
+
+    .loading-bar::after {
+      content: "";
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: 2px;
+      background: #e65bc4;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .loading-bar::after { animation: sweep 1100ms cubic-bezier(0.65, 0, 0.35, 1) infinite alternate; }
+    }
+
+    @keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
 
     #canvas {
       display: block;
@@ -87,7 +128,7 @@
       border: 1px solid var(--line);
       border-bottom-width: 2px;
       border-radius: 6px;
-      background: #fcfefe;
+      background: #f6f2eb;
       font: inherit;
       font-size: 0.875rem;
       font-weight: 600;
@@ -103,7 +144,7 @@
     <p class="about">A 2D physics platformer I wrote in Java with LibGDX for COMP 2522. Your gun's recoil is how you move: aim away from where you want to go, fire, and climb to the top as fast as you can.</p>
 
     <div class="layout">
-      <div class="stage"><canvas id="canvas" tabindex="0" aria-label="Recoil Ascent game"></canvas></div>
+      <div class="stage"><canvas id="canvas" tabindex="0" aria-label="Recoil Ascent game"></canvas><div class="loading" id="loading" role="status"><span>Loading the game (about 1 MB)…</span><span class="loading-bar"></span></div></div>
 
       <div>
         <h2>Controls</h2>
@@ -147,6 +188,10 @@
     })();
     window.addEventListener("load", function () {
       main();
+      // The game has booted and draws its own start screen from here.
+      requestAnimationFrame(function () {
+        document.getElementById("loading").classList.add("done");
+      });
       document.getElementById("canvas").focus({ preventScroll: true });
     });
   </script>
