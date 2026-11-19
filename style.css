@@ -11,6 +11,7 @@
   --accent: #e65bc4; /* fills, large type, decoration only: 2.5:1 on paper */
   --accent-ink: #9b1b80; /* links and small accent text: 5.9:1 on paper */
   --tint: #f7ddef;
+  --sakura: #f9cde3; /* soft pink for text selection: ink on it is about 14:1 */
 
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
@@ -37,7 +38,7 @@ html {
 }
 
 ::selection {
-  background: var(--accent);
+  background: var(--sakura);
   color: var(--ink);
 }
 
