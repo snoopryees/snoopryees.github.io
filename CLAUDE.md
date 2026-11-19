@@ -17,6 +17,10 @@ Nathan Hong's portfolio, served by GitHub Pages at https://snoopryees.github.io/
 - The accent (`--accent`, orchid) is too light for body text on cream. Use `--accent-ink` for links and small text, and `--accent` for fills, large display type and decoration.
 - Check that new text/background pairs reach 4.5:1 contrast.
 
+## Cache busting
+
+GitHub Pages serves files with `max-age=600`, so after changing `style.css` bump the `?v=` number on its `<link>` in `index.html`, or returning visitors can get the new HTML with the old stylesheet for up to 10 minutes.
+
 ## Preview
 
 Open `index.html` directly, or run `python -m http.server` from the repo root (the game pages need a server to load their assets).
