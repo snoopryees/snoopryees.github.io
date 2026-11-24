@@ -13,7 +13,7 @@
   --color-rule: oklch(85.2% 0.022 79);
   --color-accent: oklch(78.7% 0.113 351); --color-accent-ink: oklch(51.1% 0.161 354); --color-focus: var(--color-accent-ink);
   --color-band: var(--color-ink); --color-band-2: oklch(22% 0.010 70); --color-band-rule: oklch(34% 0.012 72); --color-on-band: var(--color-paper); --color-on-band-muted: oklch(80% 0.018 78);
-  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif; --font-outlier: var(--font-body);
-  --radius-card: 10px; --radius-control: 6px; --radius-tag: 4px; --measure: 68ch; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif; --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif; --font-outlier: var(--font-body); --font-mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --radius-card: 10px; --radius-control: 6px; --radius-tag: 4px; --radius-sheet: 24px; --measure: 68ch; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
   --tracking-display: -0.02em;
 }

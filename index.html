@@ -7,16 +7,16 @@
   <meta name="description" content="Nathan Hong, Richmond, BC. Game tools and AI features. BCIT Computer Systems Technology (AI/ML option), graduating December 2026.">
   <meta name="theme-color" content="#100d0a">
   <meta property="og:title" content="Nathan Hong">
-  <meta property="og:description" content="Student developer, hungry to learn game dev and the systems underneath.">
+  <meta property="og:description" content="Student developer building game tools, AI features and the systems underneath.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://snoopryees.github.io/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050505'/%3E%3Cpath d='M9 23V9h3.2l7.6 9.1V9H23v14h-3.2l-7.6-9.1V23z' fill='%23f19bc3'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tokens.css?v=9">
-  <link rel="stylesheet" href="base.css?v=9">
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="tokens.css?v=10">
+  <link rel="stylesheet" href="base.css?v=10">
+  <link rel="stylesheet" href="style.css?v=10">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -24,6 +24,7 @@
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="i-external" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 7 8.5-7"/></symbol>
     <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
@@ -45,7 +46,7 @@
   <main id="main">
     <section class="wrap hero">
       <h1><span class="word"><span>Nathan</span></span> <span class="word"><span>Hong</span></span></h1>
-      <p class="hero-statement">Student developer, hungry to learn <mark>game dev</mark> and the systems underneath.</p>
+      <p class="hero-statement">Student developer building game tools, AI features and <mark>the systems underneath</mark>.</p>
       <p class="hero-facts">Most recently: a localization scanner for an unannounced Unreal Engine 5 title, and model fallbacks that keep AI hazard suggestions working for WorkSafeBC officers. BCIT Computer Systems Technology (AI/ML), graduating December 2026. Richmond, BC.</p>
       <p class="actions">
         <a class="button button-primary" href="resume.pdf" download="Nathan-Hong-Resume.pdf"><svg class="icon" width="17" height="17" aria-hidden="true"><use href="#i-download"/></svg>Download resume</a>
@@ -87,6 +88,7 @@
       </div>
     </section>
 
+    <div class="sheet">
     <section class="wrap section" id="experience" aria-labelledby="experience-heading">
       <h2 id="experience-heading">Experience</h2>
       <div class="section-body">
@@ -292,6 +294,8 @@
       </div>
     </section>
 
+    </div>
+
     <section class="wrap section" id="contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Contact</h2>
       <div class="section-body contact-list">
@@ -344,6 +348,96 @@
             });
           }, { threshold: 0.4 });
           document.querySelectorAll("video[data-inview]").forEach(function (v) { player.observe(v); });
+        }
+      }
+
+      // Curtain: Play pins once its bottom reaches the screen's bottom, so the cream sheet slides over it.
+      var play = document.getElementById("play");
+      if (play && "ResizeObserver" in window) {
+        new ResizeObserver(function () {
+          document.documentElement.style.setProperty("--play-h", play.offsetHeight + "px");
+        }).observe(play);
+      }
+
+      // Hero terminal: Dungeon Crawler-style characters drift behind the name.
+      // Built by script, so without JS there is nothing to pause; still under reduced motion.
+      var hero = document.querySelector(".hero");
+      var field = document.createElement("canvas");
+      if (hero && field.getContext) {
+        var ctx = field.getContext("2d");
+        var tokens = getComputedStyle(document.documentElement);
+        var glyph = tokens.getPropertyValue("--color-on-band").trim();
+        var mark = tokens.getPropertyValue("--color-accent").trim();
+        var mono = tokens.getPropertyValue("--font-mono").trim();
+        var RAMP = " .,:-=+*#", CW = 10, CH = 17;
+        var w = 0, h = 0, dpr = 1, cols = 0, rows = 0;
+        var playing = !reduceMotion, visible = false, raf = 0, last = 0, t0 = performance.now(), elapsed = 0;
+        field.className = "hero-field";
+        field.setAttribute("aria-hidden", "true");
+        hero.prepend(field);
+        var ramp = function (x, a, b) { return Math.max(0, Math.min(1, (x - a) / (b - a))); };
+        var size = function () {
+          dpr = Math.min(2, window.devicePixelRatio || 1);
+          w = hero.clientWidth; h = hero.clientHeight;
+          field.width = Math.round(w * dpr); field.height = Math.round(h * dpr);
+          cols = Math.ceil(w / CW); rows = Math.ceil(h / CH);
+        };
+        var draw = function (t) {
+          var narrow = w < 640;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          ctx.clearRect(0, 0, w, h);
+          ctx.font = "13px " + mono;
+          ctx.textBaseline = "top";
+          ctx.fillStyle = glyph;
+          for (var r = 0; r < rows; r++) {
+            for (var q = 0; q < cols; q++) {
+              var u = q / cols, v = r / rows;
+              // Strongest on the empty right; never behind the paragraph or the buttons.
+              var m = narrow ? ramp(u, 0.3, 0.8) * (1 - ramp(v, 0.2, 0.34)) : ramp(u, 0.45, 0.85);
+              if (m <= 0) continue;
+              var n = Math.sin(q * 0.21 + t * 0.32) + Math.sin(r * 0.29 - t * 0.23) + Math.sin((q + r) * 0.11 + t * 0.17);
+              var val = (n + 3) / 6 * m;
+              var i = Math.min(RAMP.length - 1, Math.floor(val * RAMP.length));
+              if (i <= 0) continue;
+              ctx.globalAlpha = 0.08 + val * 0.26;
+              ctx.fillText(RAMP[i], q * CW, r * CH);
+            }
+          }
+          // The player, wandering the field
+          var pu = narrow ? 0.7 + 0.18 * Math.sin(t * 0.13) : 0.78 + 0.13 * Math.sin(t * 0.13);
+          var pv = narrow ? 0.12 + 0.07 * Math.sin(t * 0.09 + 1) : 0.45 + 0.3 * Math.sin(t * 0.09 + 1);
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = mark;
+          ctx.fillText("@", Math.floor(pu * cols) * CW, Math.floor(pv * rows) * CH);
+        };
+        var frame = function (now) {
+          raf = 0;
+          if (!(playing && visible)) return;
+          if (now - last >= 66) { last = now; draw((now - t0) / 1000); }
+          raf = requestAnimationFrame(frame);
+        };
+        var kick = function () { if (!raf && playing && visible) raf = requestAnimationFrame(frame); };
+        var now = function () { return playing ? (performance.now() - t0) / 1000 : elapsed; };
+        size(); draw(reduceMotion ? 6 : 0);
+        if ("ResizeObserver" in window) new ResizeObserver(function () { size(); draw(now()); }).observe(hero);
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver(function (es) { visible = es[0].isIntersecting; kick(); }).observe(hero);
+        } else { visible = true; kick(); }
+
+        // A visible pause for a loop that runs past five seconds
+        if (!reduceMotion) {
+          var toggle = document.createElement("button");
+          toggle.type = "button";
+          toggle.className = "hero-field-toggle";
+          var label = function () {
+            toggle.innerHTML = '<svg class="icon" width="15" height="15" aria-hidden="true"><use href="#' + (playing ? "i-pause" : "i-play") + '"/></svg>' + (playing ? "Pause background" : "Play background");
+          };
+          label();
+          toggle.addEventListener("click", function () {
+            if (playing) { elapsed = now(); playing = false; } else { t0 = performance.now() - elapsed * 1000; playing = true; kick(); }
+            label();
+          });
+          hero.appendChild(toggle);
         }
       }
 
