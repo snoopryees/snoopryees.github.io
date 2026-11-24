@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -105,30 +105,32 @@
       </div>
     </section>
 
-    <section class="wrap section" id="projects" aria-labelledby="projects-heading">
-      <h2 id="projects-heading">Projects</h2>
-      <div class="section-body cards">
-
-        <article class="card card-wide reveal">
-          <figure class="card-media">
-            <img src="assets/projects/hiips360.webp" width="1920" height="1080" alt="Three HIIPS360 phone screens: the landing page, the AI matching a described job to the motion picture protocol sheet, and the resulting hazards checklist" loading="lazy">
-          </figure>
-          <div class="card-head">
-            <h3>HIIPS360</h3>
-            <p class="card-about">Team project for WorkSafeBC (real client), COMP 4800</p>
-            <p class="when">Sep 2026 – present</p>
-          </div>
+    <section class="wrap section" id="industry" aria-labelledby="industry-heading">
+      <h2 id="industry-heading">Industry project</h2>
+      <div class="section-body">
+        <article class="job reveal">
+          <h3>HIIPS360 for WorkSafeBC</h3>
+          <p class="job-role">Developer, BCIT student team with WorkSafeBC as the client</p>
+          <p class="when">Sep 2026 – present</p>
+          <p class="job-summary">A hazard-identification app for WorkSafeBC prevention officers, built for the client through BCIT's COMP 4800 industry project.</p>
           <ul class="points">
             <li>Built and tested the AI hazard-suggestion service in a React PWA for WorkSafeBC prevention officers: added fallback Gemini models so suggestions still arrive during outages and quota limits, fixed AI bugs from the team's bug log, and wrote most of the AI test suite.</li>
             <li>Built the Express and MongoDB auth API, landing and summary pages and PWA install; deployed the app on Railway; wrote the team's AI vision architecture research report for the client.</li>
           </ul>
-          <ul class="tags" aria-label="Technologies">
-            <li>React</li><li>Node.js</li><li>Express</li><li>MongoDB</li><li>Gemini API</li><li>PWA</li>
-          </ul>
+          <figure class="job-media">
+            <img src="assets/projects/hiips360.webp" width="1920" height="1080" alt="Three HIIPS360 phone screens: the landing page, the AI matching a described job to the motion picture protocol sheet, and the resulting hazards checklist" loading="lazy">
+          </figure>
+          <p class="job-env"><strong>Environment:</strong> React PWA, Node.js, Express, MongoDB, Gemini API, Railway, client-facing agile team</p>
           <p class="actions">
             <a class="button" href="https://github.com/anthonyherradura/comp_4800_g09_worksafebc_HIIPS360"><svg class="icon" width="17" height="17" aria-hidden="true"><use href="#i-external"/></svg>Repository</a>
           </p>
         </article>
+      </div>
+    </section>
+
+    <section class="wrap section" id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <div class="section-body cards">
 
         <article class="card card-wide reveal">
           <div class="card-head">

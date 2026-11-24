@@ -380,6 +380,20 @@ h3 {
 
 /* Experience */
 
+.job-media {
+  max-width: var(--measure);
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--card-radius);
+  background: var(--ink);
+}
+
+.job-media img {
+  width: 100%;
+  height: auto;
+}
+
 .job-role {
   margin-top: 0.35rem;
   font-weight: 600;
