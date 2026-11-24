@@ -6,6 +6,7 @@
 /* Hallmark · dismissed 23 · the mark is the brand's highlight behind two words of the statement, well under 5% of any viewport */
 /* Hallmark · dismissed 41 · no text sits on the sakura fill but --color-ink at 9.9:1; --color-accent-ink is the brand's link rose on paper (5:1), never ink on the accent */
 /* Hallmark · waive 59 · the hero-to-Play seam is a band-rule hairline on one ink screen, every other gap is 120px or more · the 104px gap keeps the two game screenshots cresting the 1440 fold under the name */
+/* Hallmark · waive 39b · .dodge-pause is a text control inside the game's HUD at 32px, with a 44px hit area from its ::after · a 48px control would crowd the time and best readouts in the arena's header row */
 /* Hallmark · dismissed 59 · ten sections is the page as it stood; a restyle keeps every section, and merging any is a full redesign */
 /* Hallmark · reworded "Projects" to "Recent projects" · 54 names a bare category head; it now pairs with "Earlier projects" */
 /* Hallmark · finish-review: subagent · 7 findings · 5 resolved 1 partial 1 unresolved · gap: the hero's bare right side, a full-redesign question */
@@ -152,41 +153,114 @@ a:hover {
   mask-image: linear-gradient(90deg, var(--color-ink) 82%, transparent);
 }
 
-.hero-field-toggle {
-  position: absolute;
-  right: var(--gutter);
-  bottom: var(--space-xl);
-  display: inline-flex;
+/* Dodge the lasers: built by hero.js. Under the buttons on narrow screens,
+   beside the text (level with the statement) on wide ones. No fill or border of
+   its own: the field draws a frame of + - | around it and stops at its edge. */
+.dodge {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 16rem;
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-sm);
+  color: var(--color-on-band);
+}
+
+@media (min-width: 72rem) {
+  .dodge {
+    position: absolute;
+    top: var(--dodge-top, auto);
+    right: var(--gutter);
+    bottom: var(--space-xl);
+    width: min(24rem, 30%);
+    height: auto;
+    margin: 0;
+  }
+}
+
+.dodge-hud {
+  display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  min-height: 44px;
-  padding: 0 var(--space-md);
-  border: 1px solid var(--color-band-rule);
-  border-radius: var(--radius-control);
-  background: var(--color-band);
+  gap: var(--space-md);
+  padding-bottom: var(--space-2xs);
+  color: var(--color-on-band-muted);
+  font: var(--text-sm) / 1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.dodge-time {
+  color: var(--color-on-band);
+}
+
+.dodge-pause {
+  position: relative;
+  min-height: 32px;
+  margin-left: auto;
+  padding: 0 var(--space-2xs);
+  border: 0;
+  background: transparent;
   color: var(--color-on-band-muted);
   font: 600 var(--text-sm) / 1 var(--font-body);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
   cursor: pointer;
-  transition: color calc(var(--dur-short) * 0.7) var(--ease-out),
-    border-color calc(var(--dur-short) * 0.7) var(--ease-out),
-    transform var(--dur-micro) var(--ease-out);
+  transition: color calc(var(--dur-short) * 0.7) var(--ease-out);
 }
 
-.hero-field-toggle:hover {
-  border-color: var(--color-on-band-muted);
+/* A 44px hit area around the 32px control */
+.dodge-pause::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+
+.dodge-pause:hover {
   color: var(--color-on-band);
-  transition-duration: var(--dur-short), var(--dur-short), var(--dur-micro);
+  text-decoration-thickness: 2px;
+  transition-duration: var(--dur-short);
 }
 
-.hero-field-toggle:active {
-  transform: translateY(1px);
+.dodge-stage {
+  position: relative;
+  min-height: 0;
 }
 
-@media (max-width: 40rem) {
-  .hero-field-toggle {
-    position: static;
-    margin-top: var(--space-lg);
-  }
+.dodge-stage:focus-visible {
+  outline-offset: -3px;
+}
+
+.dodge-stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* While playing, a drag on the arena steers instead of scrolling the page */
+.dodge.is-playing canvas {
+  touch-action: none;
+  cursor: crosshair;
+}
+
+/* One line at the bottom, so the demo stays in view above it */
+.dodge-overlay {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs) var(--space-md);
+  padding-top: var(--space-lg);
+  background: linear-gradient(transparent, color-mix(in oklab, var(--color-band) 88%, transparent) 45%);
+}
+
+.dodge-hint {
+  color: var(--color-on-band-muted);
+  font-size: var(--text-sm);
+}
+
+.dodge .button {
+  min-height: 44px;
+  padding: 0 var(--space-md);
 }
 
 /* The one rule on the dark opening screen: name above, games below */
@@ -942,7 +1016,7 @@ html:not(.js) .copy {
 @media (prefers-reduced-motion: reduce) {
   .button,
   .play-tile,
-  .hero-field-toggle,
+  .dodge-pause,
   .copy-icons .icon {
     transition: none;
   }
