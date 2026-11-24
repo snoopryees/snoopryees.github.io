@@ -1,54 +1,31 @@
-/* Nathan Hong portfolio */
+/* Hallmark · shape: kept · genre: editorial · theme: brand · redesign: restyle
+ * paper: oklch(92.7% 0.015 81) · accent: oklch(78.7% 0.113 351) · display: Bricolage Grotesque · body: Instrument Sans · hero: kept · nav: kept · footer: kept · signature: the name and the two games on one full-bleed ink screen, one click from playing
+ * axes: light/grotesk-heavy/chromatic-pink · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V3 · weakest: V, the layout stays by request, so the ink opening screen, the ink close and the section head scale carry the change */
+/* Hallmark · answered F4 · each game tile's one action is its play button, and the resume download is the hero's; three filled controls, never two in one view */
+/* Hallmark · dismissed 23 · the mark is the brand's highlight behind two words of the statement, well under 5% of any viewport */
+/* Hallmark · dismissed 41 · no text sits on the sakura fill but --color-ink at 9.9:1; --color-accent-ink is the brand's link rose on paper (5:1), never ink on the accent */
+/* Hallmark · waive 59 · the hero-to-Play seam is a band-rule hairline on one ink screen, every other gap is 120px or more · the 104px gap keeps the two game screenshots cresting the 1440 fold under the name */
+/* Hallmark · dismissed 59 · ten sections is the page as it stood; a restyle keeps every section, and merging any is a full redesign */
+/* Hallmark · reworded "Projects" to "Recent projects" · 54 names a bare category head; it now pairs with "Earlier projects" */
+/* Hallmark · finish-review: subagent · 7 findings · 5 resolved 1 partial 1 unresolved · gap: the hero's bare right side, a full-redesign question */
+/* tokens.css and base.css load as <link>s before this file in index.html */
 
-:root {
-  /* Three-colour editorial palette: cream, ink, one soft sakura accent */
-  --paper: #ece6dc;
-  --surface: #f6f2eb;
-  --ink: #050505;
-  --muted: #5e564b;
-  --line: #d6cdbf;
-  --grid: rgba(5, 5, 5, 0.06);
-  --accent: #f19bc3; /* sakura: fills and highlights only (ink on it is 9.9:1; too faint on paper for small marks) */
-  --accent-ink: #a8336c; /* deep rose: links, bullets, small accent marks (5:1 on paper) */
-  --tint: #fbe4ee;
-
-  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
-
-  --gutter: 1.25rem;
-  --measure: 68ch;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-
-  --card-radius: 14px;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+/* Nathan Hong portfolio. Tokens live in tokens.css; base.css holds the shared floor. */
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(241, 155, 195, 0.2);
-  scrollbar-color: var(--ink) var(--paper);
+  -webkit-tap-highlight-color: color-mix(in oklab, var(--color-accent) 20%, transparent);
+  scrollbar-color: var(--color-ink) var(--color-paper);
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--color-accent);
+  color: var(--color-ink);
 }
 
 [id] {
-  scroll-margin-top: 1.5rem;
-}
-
-h1,
-h2,
-h3 {
-  text-wrap: balance;
+  scroll-margin-top: var(--space-lg);
 }
 
 p,
@@ -57,19 +34,6 @@ dd {
   text-wrap: pretty;
 }
 
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--body);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-}
-
-h1,
-h2,
-h3,
-p,
 ul,
 dl,
 dd,
@@ -82,33 +46,25 @@ ul {
   list-style: none;
 }
 
-img,
-video {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
 a {
-  color: var(--accent-ink);
-  text-decoration-thickness: 1px;
+  color: var(--color-accent-ink);
   text-underline-offset: 0.2em;
 }
 
 a:hover {
-  color: var(--ink);
+  color: var(--color-ink);
   text-decoration-thickness: 2px;
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent-ink);
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 .wrap {
   width: 100%;
-  max-width: 68rem;
+  max-width: var(--container);
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
@@ -117,31 +73,19 @@ a:hover {
   position: absolute;
   left: var(--gutter);
   top: -4rem;
-  z-index: 10;
-  padding: 0.5rem 0.75rem;
-  background: var(--ink);
-  color: var(--paper);
+  z-index: var(--z-modal);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-accent);
+  color: var(--color-ink);
 }
 
 .skip-link:focus {
-  top: 0.5rem;
-  color: var(--paper);
-}
-
-[hidden] {
-  display: none !important;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+  top: var(--space-xs);
+  color: var(--color-ink);
 }
 
 .icon {
+  display: inline-block;
   flex: none;
   width: 1.05em;
   height: 1.05em;
@@ -152,59 +96,56 @@ a:hover {
   stroke-linejoin: round;
 }
 
-/* Header */
+/* Header: sentence-case links in the body face */
 
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem clamp(0.9rem, 4vw, 1.5rem);
-  padding-block: 1.25rem;
-  font-size: 0.8125rem;
+  gap: 0 var(--space-lg);
+  padding-block: var(--space-xs);
+  font-size: var(--text-md);
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+}
+
+@media (max-width: 30rem) {
+  .site-nav {
+    column-gap: var(--space-sm);
+  }
 }
 
 .site-nav a {
-  padding-block: 0.25rem;
-  color: var(--ink);
+  padding-block: var(--space-sm);
+  color: var(--color-on-band);
   text-decoration: none;
 }
 
 .site-nav a:hover {
-  color: var(--accent-ink);
+  color: var(--color-accent);
   text-decoration: underline;
   text-decoration-thickness: 2px;
 }
 
-/* Hero: oversized type on a faint column grid */
+/* Hero: the name at poster scale */
 
 .hero {
   position: relative;
-  isolation: isolate;
-  padding-block: clamp(2.5rem, 8vw, 6rem) clamp(3rem, 8vw, 5.5rem);
+  padding-block: clamp(var(--space-xl), 5vw, var(--space-2xl)) var(--space-xl);
 }
 
-.hero::before {
+/* The one rule on the dark opening screen: name above, games below */
+.hero::after {
   content: "";
   position: absolute;
-  inset: 0 var(--gutter);
-  z-index: -1;
-  background: repeating-linear-gradient(
-    to right,
-    var(--grid) 0 1px,
-    transparent 1px calc(100% / 6)
-  );
-  border-right: 1px solid var(--grid);
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--color-band-rule);
 }
 
 .hero h1 {
-  font-family: var(--display);
-  font-weight: 700;
+  max-width: none;
   font-size: clamp(3.5rem, 15vw, 11rem);
-  line-height: 0.88;
+  line-height: 0.9;
   letter-spacing: -0.045em;
-  color: var(--ink);
 }
 
 .hero h1 .word {
@@ -221,19 +162,21 @@ a:hover {
 
 .hero-statement {
   max-width: 26ch;
-  margin-top: clamp(1.5rem, 4vw, 2.5rem);
-  font-family: var(--display);
-  font-weight: 500;
+  margin-top: var(--space-xl);
+  font-family: var(--font-display);
+  font-weight: 400;
   font-size: clamp(1.6rem, 4vw, 2.75rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
+/* The brand's one sakura highlight */
 .hero-statement mark {
   padding-inline: 0.12em;
   margin-inline: -0.04em;
   border-radius: 0.12em;
-  color: var(--ink);
+  background: var(--color-accent);
+  color: var(--color-ink);
   white-space: nowrap;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -241,152 +184,269 @@ a:hover {
 
 .hero-facts {
   max-width: 50ch;
-  margin-top: 1.25rem;
-  color: var(--muted);
+  margin-top: var(--space-md);
+  color: var(--color-on-band-muted);
 }
 
-/* Buttons */
+/* Controls: squared, 48px, one press */
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.75rem;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
 }
 
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
-  padding: 0.6rem 1.1rem;
-  border: 1.5px solid var(--ink);
-  border-radius: 999px;
+  gap: var(--space-xs);
+  min-height: 48px;
+  padding: 0 var(--space-lg);
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-control);
   background: transparent;
-  color: var(--ink);
-  font: inherit;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.3;
+  color: var(--color-ink);
+  font: 600 var(--text-md) / 1.2 var(--font-body);
+  white-space: nowrap;
   text-decoration: none;
-  overflow-wrap: anywhere;
   cursor: pointer;
   touch-action: manipulation;
-  /* exits run ~20% shorter than entrances (see :hover) */
-  transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out),
-    border-color 180ms var(--ease-out), transform 160ms var(--ease-out);
+  /* exits run ~30% shorter than entrances (see :hover) */
+  transition: background-color calc(var(--dur-short) * 0.7) var(--ease-out),
+    color calc(var(--dur-short) * 0.7) var(--ease-out),
+    border-color calc(var(--dur-short) * 0.7) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
 }
 
 .button:hover {
-  background: var(--ink);
-  color: var(--paper);
-  transition-duration: 220ms;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transition-duration: var(--dur-short), var(--dur-short), var(--dur-short), var(--dur-micro);
 }
 
 .button:active {
-  transform: scale(0.97);
+  transform: translateY(1px);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .button-primary {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--ink);
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-ink);
 }
 
 .button-primary:hover {
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--accent);
+  border-color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-accent);
 }
 
 .button-small {
-  padding: 0.45rem 0.9rem;
-  font-size: 0.9375rem;
+  min-height: 44px;
+  padding: 0 var(--space-md);
 }
 
 .text-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.35em;
+  gap: var(--space-xs);
+  min-height: 44px;
   font-weight: 600;
 }
 
 /* Sections: heading rail on the left, content on the right */
 
 .section {
-  padding-block: clamp(2.25rem, 5vw, 3.5rem);
-  border-top: 1px solid var(--ink);
+  padding-block: calc(var(--section-gap-s) / 2 + var(--space-xs));
+  border-top: 1px solid var(--color-rule);
 }
 
 .section h2 {
-  margin-bottom: 1.5rem;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.75rem;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  margin-bottom: var(--space-lg);
+  font-size: clamp(2rem, 1.2rem + 1.6vw, 2.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+/* Seams: one pale rule between cream sections, a change of paper at the ink bands;
+   the section after a band needs no rule of its own */
+#experience {
+  border-top: 0;
+}
+
+#projects {
+  padding-top: calc(var(--section-gap) / 2 + var(--space-lg));
 }
 
 @media (min-width: 60rem) {
   .section {
     display: grid;
-    grid-template-columns: 11rem minmax(0, 1fr);
-    column-gap: 2.5rem;
+    grid-template-columns: 17rem minmax(0, 1fr);
+    column-gap: var(--space-xl);
     align-items: start;
   }
 
   .section h2 {
     position: sticky;
-    top: 1.5rem;
+    top: var(--space-lg);
     margin-bottom: 0;
   }
 }
 
 h3 {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-size: var(--text-title);
   line-height: 1.15;
   letter-spacing: -0.015em;
 }
 
 .when {
-  color: var(--muted);
-  font-size: 0.9375rem;
+  margin-top: var(--space-2xs);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
   font-variant-numeric: tabular-nums;
 }
 
 .points {
   display: grid;
-  gap: 0.75rem;
-  margin-top: 1.1rem;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
   max-width: var(--measure);
 }
 
 .points li {
   position: relative;
-  padding-left: 1.25rem;
+  padding-left: var(--space-lg);
 }
 
+/* Square, pixel-sized bullets */
 .points li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.62em;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--accent-ink);
+  top: 0.6em;
+  width: 0.45rem;
+  height: 0.45rem;
+  background: var(--color-accent-ink);
+}
+
+/* Ink bands: the nav, hero and games open on one launcher-dark screen;
+   Contact and the footer close on it */
+
+.site-header,
+.hero,
+#play,
+#contact,
+.site-footer {
+  --color-focus: var(--color-accent);
+  background-color: var(--color-band);
+  color: var(--color-on-band);
+  border-top: 0;
+  border-image: linear-gradient(var(--color-band), var(--color-band)) fill 0 / 0 / 0 100vmax;
+}
+
+#play {
+  padding-block: var(--space-2xl) var(--section-gap-s);
+}
+
+#play h2,
+#contact h2 {
+  color: var(--color-on-band);
+}
+
+.hero .button:not(.button-primary),
+#contact .button {
+  border-color: var(--color-on-band);
+  color: var(--color-on-band);
+}
+
+.hero .button:hover,
+#contact .button:hover,
+#play .button-primary:hover {
+  border-color: var(--color-on-band);
+  background: var(--color-on-band);
+  color: var(--color-ink);
+}
+
+/* Play strip: the two browser-playable games */
+
+.play-tiles {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.play-tile {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-band-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-band-2);
+  color: var(--color-on-band);
+  transition: border-color calc(var(--dur-short) * 0.7) var(--ease-out);
+}
+
+.play-tile:has(a:hover) {
+  border-color: var(--color-accent);
+  transition-duration: var(--dur-short);
+}
+
+.play-tile .media {
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-band-rule);
+  background: var(--color-band);
+}
+
+.play-tile .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pixel {
+  image-rendering: pixelated;
+}
+
+.play-tile-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: var(--space-lg);
+}
+
+.play-tile h3 {
+  color: var(--color-on-band);
+}
+
+.play-tile p {
+  margin-top: var(--space-xs);
+  color: var(--color-on-band-muted);
+}
+
+.play-tile .actions {
+  margin-top: auto;
+  padding-top: var(--space-lg);
 }
 
 /* Experience */
 
 .job-media {
   max-width: var(--measure);
-  margin-top: 1.5rem;
+  margin-top: var(--space-lg);
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--card-radius);
-  background: var(--ink);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .job-media img {
@@ -395,114 +455,52 @@ h3 {
 }
 
 .job-role {
-  margin-top: 0.35rem;
+  margin-top: var(--space-2xs);
   font-weight: 600;
 }
 
 .job-summary {
   max-width: var(--measure);
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
 .job-env {
   max-width: var(--measure);
-  margin-top: 1.1rem;
-  color: var(--muted);
+  margin-top: var(--space-md);
+  color: var(--color-muted);
 }
 
 .job-env strong {
-  color: var(--ink);
+  color: var(--color-ink);
   font-weight: 600;
-}
-
-/* Play strip: the two browser-playable games, up top */
-
-.play-tiles {
-  display: grid;
-  gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-}
-
-.play-tile {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--ink);
-  color: var(--paper);
-  border-radius: var(--card-radius);
-}
-
-.play-tile .media {
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: #000;
-}
-
-.play-tile .media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 500ms var(--ease-out);
-}
-
-.pixel {
-  image-rendering: pixelated;
-}
-
-.play-tile:hover .media img {
-  transform: scale(1.03);
-}
-
-.play-tile-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 1.25rem 1.5rem 1.5rem;
-}
-
-.play-tile p {
-  margin-top: 0.4rem;
-  color: #cfc7bb;
-}
-
-.play-tile .actions {
-  margin-top: auto;
-  padding-top: 1.25rem;
-}
-
-.play-tile .text-link {
-  color: var(--paper);
-}
-
-.play-tile .text-link:hover {
-  color: var(--accent);
 }
 
 /* Project cards */
 
 .cards {
   display: grid;
-  gap: 1.25rem;
+  gap: var(--space-lg);
 }
 
 .card {
-  --pad: 1.5rem;
+  --pad: var(--space-lg);
   display: flex;
   flex-direction: column;
   padding: var(--pad);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--card-radius);
+  background: var(--color-paper-2);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
 }
 
-/* Media bleeds to the card edge, so its outer corners share the card's radius
+/* Media bleeds to the card edge, so its top corners share the card's radius
    (inner radius = outer radius - border) and its bottom corners are square. */
 .card-media {
   margin: calc(var(--pad) * -1) calc(var(--pad) * -1) var(--pad);
   overflow: hidden;
-  border-radius: calc(var(--card-radius) - 1px) calc(var(--card-radius) - 1px) 0 0;
-  border-bottom: 1px solid var(--line);
-  background: var(--ink);
+  border-radius: calc(var(--radius-card) - 1px) calc(var(--radius-card) - 1px) 0 0;
+  border-bottom: 1px solid var(--color-rule);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .card-media img,
@@ -513,11 +511,11 @@ h3 {
   object-position: top;
 }
 
-/* One large shot plus two stacked: all 16:9, so the 2fr/1fr split lines up exactly */
+/* One large shot plus two stacked: all 16:9, so the 2:1 split lines up exactly */
 .card-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-3xs);
 }
 
 .card-gallery img:first-child {
@@ -526,8 +524,8 @@ h3 {
 
 @media (min-width: 46rem) {
   .card-gallery {
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .card-gallery img:first-child {
@@ -538,67 +536,66 @@ h3 {
 }
 
 .card-about {
-  margin-top: 0.4rem;
-  font-weight: 500;
+  margin-top: var(--space-xs);
+  font-weight: 600;
 }
 
 .card .points {
-  font-size: 1rem;
   line-height: 1.55;
 }
 
 /* The one number each project is proudest of */
 .stat {
   display: grid;
-  gap: 0.2rem;
-  margin-top: 1.25rem;
+  gap: var(--space-2xs);
+  margin-top: var(--space-lg);
 }
 
 .stat-num {
   white-space: nowrap;
-  font-family: var(--display);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-size: var(--text-3xl);
   line-height: 1;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
 
 .stat-num .arrow {
-  color: var(--accent-ink);
+  color: var(--color-accent-ink);
 }
 
 .stat-label {
-  max-width: 26ch;
-  color: var(--muted);
-  font-size: 0.9375rem;
+  max-width: 28ch;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
   line-height: 1.4;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 1.25rem;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
 }
 
 .tags li {
-  padding: 0.15rem 0.6rem;
-  border-radius: 6px;
-  background: var(--tint);
-  color: var(--accent-ink);
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: var(--space-3xs) var(--space-xs);
+  border-radius: var(--radius-tag);
+  background: var(--color-paper-3);
+  color: var(--color-accent-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
 }
 
 .card .actions {
   margin-top: auto;
-  padding-top: 1.5rem;
+  padding-top: var(--space-lg);
 }
 
 @media (min-width: 46rem) {
   .card-wide {
-    --pad: 2rem;
+    --pad: var(--space-xl);
     grid-column: 1 / -1;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
@@ -608,7 +605,7 @@ h3 {
       "head points"
       "tags points"
       "actions points";
-    column-gap: 2.5rem;
+    column-gap: var(--space-xl);
   }
 
   .card-wide .card-media {
@@ -620,14 +617,14 @@ h3 {
   }
 
   .card-wide h3 {
-    font-size: 2.25rem;
+    font-size: var(--text-2xl);
     letter-spacing: -0.025em;
   }
 
   .card-wide .points {
     grid-area: points;
     align-content: start;
-    margin-top: 0.35rem;
+    margin-top: var(--space-2xs);
   }
 
   .card-wide .tags {
@@ -640,39 +637,26 @@ h3 {
   }
 }
 
-/* Earlier projects: smaller cards than the main four */
+/* Earlier projects: smaller cards than the main three */
 
 .cards-small {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-md);
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
 }
 
-.card-small {
-  --pad: 1.25rem;
-  border-radius: 10px;
-}
-
-.card-small h3 {
-  font-size: 1.25rem;
-}
-
-.card-small .card-about {
-  font-size: 1rem;
-}
-
 .card-small .points {
-  gap: 0.55rem;
-  margin-top: 0.9rem;
-  font-size: 0.9375rem;
+  gap: var(--space-xs);
+  font-size: var(--text-md);
 }
 
 .card-small .tags {
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
 .card-small .actions {
-  padding-top: 1.1rem;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
 }
 
 /* Skills */
@@ -684,9 +668,9 @@ h3 {
 
 .skills > div {
   display: grid;
-  gap: 0.15rem;
-  padding-block: 0.85rem;
-  border-top: 1px solid var(--line);
+  gap: var(--space-2xs);
+  padding-block: var(--space-md);
+  border-top: 1px solid var(--color-rule);
 }
 
 .skills > div:first-child {
@@ -701,69 +685,77 @@ h3 {
 @media (min-width: 36rem) {
   .skills > div {
     grid-template-columns: 9rem minmax(0, 1fr);
-    gap: 1.5rem;
+    gap: var(--space-lg);
   }
 }
 
 /* Education */
 
 .school-where {
-  margin-top: 0.35rem;
+  margin-top: var(--space-2xs);
   font-weight: 600;
 }
 
 .school-detail {
   max-width: var(--measure);
-  margin-top: 1rem;
+  margin-top: var(--space-md);
 }
 
-/* Contact and footer */
+/* Contact and footer, on the closing ink band */
+
+#contact {
+  padding-block: calc(var(--section-gap-s) * 0.8) calc(var(--section-gap-s) / 2);
+}
 
 .contact-list {
   display: grid;
-  gap: 0.5rem;
+  gap: var(--space-xs);
 }
 
 .contact-line {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 1rem;
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(1.25rem, 4.2vw, 1.75rem);
-  line-height: 1.5;
+  gap: var(--space-xs) var(--space-md);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.375rem, 1rem + 1.6vw, 2.25rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
   overflow-wrap: anywhere;
 }
 
 .contact-line a {
   display: inline-block;
-  padding-block: 0.3rem;
+  padding-block: var(--space-2xs);
+}
+
+#contact a {
+  color: var(--color-accent);
+}
+
+#contact a:hover {
+  color: var(--color-on-band);
 }
 
 .contact-alt {
-  margin-top: -0.25rem;
-  margin-bottom: 0.5rem;
-  color: var(--muted);
-  font-size: 0.9375rem;
+  margin-bottom: var(--space-md);
+  color: var(--color-on-band-muted);
+  font-size: var(--text-sm);
 }
 
 .site-footer {
-  padding-block: 2rem 3rem;
-  border-top: 1px solid var(--ink);
-  color: var(--muted);
-  font-size: 0.9375rem;
+  padding-block: calc(var(--section-gap-s) / 2) var(--space-xl);
+  border-top: 1px solid var(--color-band-rule);
+  color: var(--color-on-band-muted);
+  font-size: var(--text-sm);
 }
 
-/* Copy-email button: copy icon crossfades (with blur) to a check, then the
-   button pulses once to confirm. Hidden without JS; the mailto link covers it. */
+/* Copy-email button: the copy icon crossfades to a check, then the button
+   pulses once. Hidden without JS; the mailto link covers it. */
 
 html:not(.js) .copy {
   display: none;
-}
-
-.copy {
-  font-family: var(--body);
 }
 
 .copy-icons {
@@ -774,102 +766,71 @@ html:not(.js) .copy {
 
 .copy-icons .icon {
   grid-area: 1 / 1;
-  transition: opacity 180ms var(--ease-out), filter 180ms var(--ease-out),
-    transform 180ms var(--ease-out);
+  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
 }
 
-.copy .icon-check,
-.copy.copied .icon-copy {
+.js .copy .icon-check,
+.js .copy.copied .icon-copy {
   opacity: 0;
-  filter: blur(3px);
   transform: scale(0.6);
 }
 
-.copy.copied .icon-check {
+.js .copy.copied .icon-check {
   opacity: 1;
-  filter: none;
   transform: none;
 }
 
-.copy.copied {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--ink);
+#contact .copy.copied {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-ink);
 }
 
 /* Motion. Everything above renders in its final state; the hidden "before"
-   states below exist only when JS is running and motion is welcome. */
+   states below exist only when motion is welcome (and, for scroll reveals, JS runs). */
 
 @media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* The hero settles once, 0.8s in all */
   .hero h1 .word > span {
-    animation: rise 1000ms var(--ease-out) both;
+    animation: rise 620ms var(--ease-out) both;
   }
 
   .hero h1 .word + .word > span {
-    animation-delay: 110ms;
+    animation-delay: 60ms;
   }
 
   .hero-statement,
   .hero-facts,
   .hero .actions {
-    animation: settle 900ms var(--ease-out) both;
+    animation: settle 560ms var(--ease-out) both;
   }
 
   .hero-statement {
-    animation-delay: 380ms;
-  }
-
-  .hero-statement mark {
-    animation: mark-in 700ms var(--ease-out) 900ms both;
+    animation-delay: 120ms;
   }
 
   .hero-facts {
-    animation-delay: 500ms;
+    animation-delay: 180ms;
   }
 
   .hero .actions {
-    animation-delay: 620ms;
+    animation-delay: 240ms;
   }
 
-  /* Scroll-in entrances */
+  /* The page's one scroll reveal: cards rise in as they arrive */
   .js .reveal {
     opacity: 0;
-    transform: translateY(1rem);
-    transition: opacity 500ms var(--ease-out), transform 600ms var(--ease-out);
+    transform: translateY(var(--space-xs));
+    transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
   }
 
   .js .reveal.in {
     opacity: 1;
     transform: none;
-  }
-
-  /* Rows inside a card settle one after another, 30ms apart */
-  .js .reveal .points li {
-    opacity: 0;
-    transform: translateY(0.5rem);
-    transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
-    transition-delay: calc(120ms + var(--i, 0) * 30ms);
-  }
-
-  .js .reveal.in .points li {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* Masked reveals: headings and big numbers wipe in from the left */
-  .js .section h2,
-  .js .stat-num {
-    clip-path: inset(0 100% 0 0);
-    transition: clip-path 700ms var(--ease-out);
-  }
-
-  .js .section.in h2,
-  .js .reveal.in .stat-num {
-    clip-path: inset(0 -0.1em 0 0);
-  }
-
-  .js .reveal.in .stat-num {
-    transition-delay: 200ms;
   }
 
   .copy.copied {
@@ -886,40 +847,23 @@ html:not(.js) .copy {
 @keyframes settle {
   from {
     opacity: 0;
-    transform: translateY(0.9rem);
+    transform: translateY(var(--space-xs));
   }
-}
-
-@keyframes mark-in {
-  from {
-    background-size: 0% 100%;
-  }
-}
-
-.hero-statement mark {
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-color: transparent;
 }
 
 @keyframes pulse {
   from {
-    box-shadow: 0 0 0 0 rgba(241, 155, 195, 0.6);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-accent) 60%, transparent);
   }
   to {
-    box-shadow: 0 0 0 0.6rem rgba(241, 155, 195, 0);
+    box-shadow: 0 0 0 0.6rem color-mix(in oklab, var(--color-accent) 0%, transparent);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   .button,
-  .copy-icons .icon,
-  .play-tile .media img {
+  .play-tile,
+  .copy-icons .icon {
     transition: none;
   }
 }
